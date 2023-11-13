@@ -1,9 +1,16 @@
 {
   "extends": [
-    "../../.eslintrc.json"
+    "../../.eslintrc.base.json"
   ],
+  "parserOptions": {
+    "project": [
+      "./apps/platform/tsconfig.app.json",
+      "./apps/platform/tsconfig.spec.json"
+    ]
+  },
   "ignorePatterns": [
-    "!**/*"
+    "!**/*",
+    "*.generated.ts"
   ],
   "overrides": [
     {

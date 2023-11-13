@@ -14,10 +14,37 @@
         "target": "node",
         "compiler": "tsc",
         "outputPath": "dist/apps/platform",
-        "main": "apps/platform/src/main.ts",
+        "main": "apps/platform/src/app/main.ts",
         "tsConfig": "apps/platform/tsconfig.app.json",
+        "tsPlugins": [
+          {
+            "name": "@nestjs/swagger/plugin",
+            "options": {
+              "dtoFileNameSuffix": [
+                ".entity.ts",
+                ".dto.ts"
+              ],
+              "controllerFileNameSuffix": [
+                ".controller.ts"
+              ],
+              "classValidatorShim": true,
+              "dtoKeyOfComment": "description",
+              "controllerKeyOfComment": "description",
+              "introspectComments": true
+            }
+          }
+        ],
         "assets": [
-          "apps/platform/src/assets"
+          {
+            "glob": "**/*",
+            "input": "apps/platform/src/app/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/platform/src/app/i18n/",
+            "output": "i18n"
+          }
         ],
         "isolatedConfig": true,
         "webpackConfig": "apps/platform/webpack.config.js"
@@ -43,7 +70,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
+      "executor": "@nx/linter:eslint",
       "outputs": [
         "{options.outputFile}"
       ],
@@ -67,6 +94,14 @@
           "ci": true,
           "codeCoverage": true
         }
+      }
+    },
+    "generate-client": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "openapi-generator-cli generate -i ./apps/platform/resources/openapi-docs.json -g typescript-axios -o libs/clients/platform-client/src/lib/generated -c ./apps/platform/resources/openapi-server-generator.config.yaml"
+        ]
       }
     }
   },
