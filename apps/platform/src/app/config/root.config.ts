@@ -7,12 +7,10 @@ import { AuthConfig } from '@softkit/auth';
 import { SwaggerConfig } from '@softkit/swagger-utils';
 import { I18Config } from '@softkit/i18n';
 import { DbConfig } from '@softkit/typeorm';
-import { HttpClientConfig } from '@softkit/server-http-client';
-import { PlatformClientConfig } from '@softkit/platform-client';
 import { HealthConfig } from '@softkit/health-check';
 import { AppConfig } from '@softkit/bootstrap';
 
-export default class RootConfig implements PlatformClientConfig {
+export default class RootConfig {
   @Type(() => LoggerConfig)
   @ValidateNested()
   public readonly logs!: LoggerConfig;
@@ -20,10 +18,6 @@ export default class RootConfig implements PlatformClientConfig {
   @Type(() => AuthConfig)
   @ValidateNested()
   public readonly auth!: AuthConfig;
-
-  @Type(() => HttpClientConfig)
-  @ValidateNested()
-  public readonly platformClient!: HttpClientConfig;
 
   @Type(() => AppConfig)
   @ValidateNested()

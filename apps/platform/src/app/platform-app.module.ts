@@ -25,10 +25,9 @@ import {
   HeaderTenantResolutionService,
   JwtAuthGuard,
   JwtStrategy,
-  PermissionsGuard,
+  AccessGuard,
   TokenService,
 } from '@softkit/auth';
-import { PlatformClientModule } from '@softkit/platform-client';
 import { HealthCheckModule } from '@softkit/health-check';
 import {
   ClsPresetSubscriber,
@@ -53,7 +52,6 @@ import { TenantSignupService } from './services/auth/signup/tenant-signup.servic
       migrations: Migrations,
     }),
     TypeOrmModule.forFeature(Object.values(Entities)),
-    PlatformClientModule,
     HealthCheckModule,
   ],
   controllers: Object.values(Controllers),
@@ -100,7 +98,7 @@ import { TenantSignupService } from './services/auth/signup/tenant-signup.servic
     },
     {
       provide: APP_GUARD,
-      useClass: PermissionsGuard,
+      useClass: AccessGuard,
     },
   ],
 })
