@@ -13,6 +13,7 @@ node_modules
 .project
 .classpath
 .c9/
+*.iml
 *.launch
 .settings/
 *.sublime-workspace
