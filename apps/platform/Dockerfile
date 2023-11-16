@@ -4,8 +4,9 @@ FROM docker.io/node:20-alpine as deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /usr/src/app
 COPY dist/apps/platform/package*.json ./
-COPY yarn.lock ./
-COPY ./.yarn ./
+COPY dist/apps/platform/yarn.lock ./
+COPY .yarn ./.yarn
+RUN yarn set version 3.6.3
 RUN yarn install
 
 # Production image, copy all the files and run nest

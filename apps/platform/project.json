@@ -11,10 +11,11 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
+        "generatePackageJson": true,
+        "generateLockFile": true,
         "outputPath": "dist/apps/platform",
         "main": "apps/platform/src/app/main.ts",
         "tsConfig": "apps/platform/tsconfig.app.json",
-        "generatePackageJson": true,
         "tsPlugins": [
           {
             "name": "@nestjs/swagger/plugin",
@@ -67,7 +68,11 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/platform/**/*.ts"]
+        "lintFilePatterns": [
+          "apps/platform/**/*.ts",
+          "apps/platform/package.json",
+          "apps/platform/project.json"
+        ]
       }
     },
     "test": {
