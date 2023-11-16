@@ -31,7 +31,8 @@
               "pg",
               "reflect-metadata",
               "rxjs",
-              "pino-http"
+              "pino-http",
+              "pino-pretty"
             ]
           }
         ]

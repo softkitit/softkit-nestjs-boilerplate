@@ -5,8 +5,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /usr/src/app
 COPY dist/apps/platform/package*.json ./
 COPY dist/apps/platform/yarn.lock ./
+COPY .yarnrc.yml ./.yarnrc.yml
 COPY .yarn ./.yarn
-RUN yarn set version 3.6.3
 RUN yarn install
 
 # Production image, copy all the files and run nest
@@ -14,7 +14,9 @@ FROM docker.io/node:20-alpine as runner
 RUN apk add --no-cache dumb-init
 ENV NODE_ENV production
 ENV PORT 3000
+
 WORKDIR /usr/src/app
+COPY .yarnrc.yml ./.yarnrc.yml
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY --from=deps /usr/src/app/package.json ./package.json
 COPY dist/apps/platform .
