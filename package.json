@@ -12,7 +12,7 @@
     "migration:generate": "sh -c 'export MIGRATION_APP_NAME=${0}; yarn run typeorm --dataSource=node_modules/@softkit/typeorm/src/lib/migration/migration-data-source.js migration:generate apps/${0}/src/app/database/migrations/${1}'",
     "prebuild": "rimraf dist",
     "test:all": "nx affected:test --all --codeCoverage --skip-nx-cache --parallel=false",
-    "prepare": "husky install"
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",
