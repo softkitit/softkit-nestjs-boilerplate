@@ -121,7 +121,7 @@ export default class AuthUserService extends AbstractAuthUserService {
         `approvalEntity not found for id ${approveId}, code ${code}`,
         { securityConcern: true },
       );
-      throw false;
+      return false;
     }
 
     if (approvalEntity.code === code) {
