@@ -118,8 +118,8 @@ export class AuthService {
   }
 
   @Transactional()
-  async refreshAccessToken(userId: string) {
-    const user = await this.userAuthService.findUserByEmail(userId);
+  async refreshAccessToken(email: string) {
+    const user = await this.userAuthService.findUserByEmail(email);
 
     if (!user || user.status !== UserProfileStatus.ACTIVE) {
       throw new GeneralUnauthorizedException();
