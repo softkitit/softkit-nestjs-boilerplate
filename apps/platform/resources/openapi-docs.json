@@ -770,6 +770,10 @@
           "instance": {
             "type": "string",
             "description": "error instance, unique identifier for this particular occurrence of the problem"
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "A code that uniquely identifies the type of error or problem that occurred"
           }
         },
         "required": [
@@ -778,7 +782,8 @@
           "status",
           "detail",
           "data",
-          "instance"
+          "instance",
+          "errorCode"
         ]
       },
       "SignUpByEmailRequest": {
@@ -847,8 +852,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "object",
-            "description": "Unique identifier"
+            "type": "string"
           },
           "code": {
             "type": "string"
@@ -1019,10 +1023,6 @@
       "UserRoleWithoutPermission": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "object",
-            "description": "Unique identifier"
-          },
           "createdAt": {
             "format": "date-time",
             "type": "string",
@@ -1041,6 +1041,9 @@
           "version": {
             "type": "string",
             "description": "Entity version for optimistic lock handling"
+          },
+          "id": {
+            "type": "string"
           },
           "name": {
             "type": "string"
@@ -1061,11 +1064,11 @@
           }
         },
         "required": [
-          "id",
           "createdAt",
           "updatedAt",
           "deletedAt",
           "version",
+          "id",
           "name",
           "description"
         ]
@@ -1088,10 +1091,6 @@
       "PermissionCategory": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "object",
-            "description": "Unique identifier"
-          },
           "createdAt": {
             "format": "date-time",
             "type": "string",
@@ -1110,6 +1109,9 @@
           "version": {
             "type": "string",
             "description": "Entity version for optimistic lock handling"
+          },
+          "id": {
+            "type": "string"
           },
           "name": {
             "type": "string"
@@ -1125,11 +1127,11 @@
           }
         },
         "required": [
-          "id",
           "createdAt",
           "updatedAt",
           "deletedAt",
           "version",
+          "id",
           "name",
           "description",
           "permissions"
@@ -1138,10 +1140,6 @@
       "Permission": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "object",
-            "description": "Unique identifier"
-          },
           "createdAt": {
             "format": "date-time",
             "type": "string",
@@ -1160,6 +1158,9 @@
           "version": {
             "type": "string",
             "description": "Entity version for optimistic lock handling"
+          },
+          "id": {
+            "type": "string"
           },
           "name": {
             "type": "string"
@@ -1184,11 +1185,11 @@
           }
         },
         "required": [
-          "id",
           "createdAt",
           "updatedAt",
           "deletedAt",
           "version",
+          "id",
           "name",
           "action",
           "permissionCategoryId",
@@ -1198,10 +1199,6 @@
       "UserRole": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "object",
-            "description": "Unique identifier"
-          },
           "createdAt": {
             "format": "date-time",
             "type": "string",
@@ -1220,6 +1217,9 @@
           "version": {
             "type": "string",
             "description": "Entity version for optimistic lock handling"
+          },
+          "id": {
+            "type": "string"
           },
           "name": {
             "type": "string"
@@ -1255,11 +1255,11 @@
           }
         },
         "required": [
-          "id",
           "createdAt",
           "updatedAt",
           "deletedAt",
           "version",
+          "id",
           "name",
           "description"
         ]
@@ -1267,10 +1267,6 @@
       "UserTenantAccount": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "object",
-            "description": "Unique identifier"
-          },
           "createdAt": {
             "format": "date-time",
             "type": "string",
@@ -1293,6 +1289,9 @@
           "tenantId": {
             "type": "string",
             "description": "Tenant identifier"
+          },
+          "id": {
+            "type": "string"
           },
           "userProfileId": {
             "type": "string"
@@ -1318,12 +1317,12 @@
           }
         },
         "required": [
-          "id",
           "createdAt",
           "updatedAt",
           "deletedAt",
           "version",
           "tenantId",
+          "id",
           "userProfileId",
           "userStatus"
         ]
@@ -1331,10 +1330,6 @@
       "UserProfile": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "object",
-            "description": "Unique identifier"
-          },
           "createdAt": {
             "format": "date-time",
             "type": "string",
@@ -1353,6 +1348,9 @@
           "version": {
             "type": "string",
             "description": "Entity version for optimistic lock handling"
+          },
+          "id": {
+            "type": "string"
           },
           "email": {
             "type": "string"
@@ -1382,11 +1380,11 @@
           }
         },
         "required": [
-          "id",
           "createdAt",
           "updatedAt",
           "deletedAt",
           "version",
+          "id",
           "email",
           "firstName",
           "lastName",
@@ -1396,10 +1394,6 @@
       "SAMLConfiguration": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "object",
-            "description": "Unique identifier"
-          },
           "createdAt": {
             "format": "date-time",
             "type": "string",
@@ -1423,6 +1417,9 @@
             "type": "string",
             "description": "Tenant identifier"
           },
+          "id": {
+            "type": "string"
+          },
           "entryPoint": {
             "type": "string"
           },
@@ -1442,12 +1439,12 @@
           }
         },
         "required": [
-          "id",
           "createdAt",
           "updatedAt",
           "deletedAt",
           "version",
           "tenantId",
+          "id",
           "entryPoint",
           "certificate",
           "enabled"
@@ -1456,10 +1453,6 @@
       "Tenant": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "object",
-            "description": "Unique identifier"
-          },
           "createdAt": {
             "format": "date-time",
             "type": "string",
@@ -1478,6 +1471,9 @@
           "version": {
             "type": "string",
             "description": "Entity version for optimistic lock handling"
+          },
+          "id": {
+            "type": "string"
           },
           "tenantFriendlyIdentifier": {
             "type": "string"
@@ -1512,11 +1508,11 @@
           }
         },
         "required": [
-          "id",
           "createdAt",
           "updatedAt",
           "deletedAt",
           "version",
+          "id",
           "tenantFriendlyIdentifier",
           "tenantName",
           "tenantStatus",
