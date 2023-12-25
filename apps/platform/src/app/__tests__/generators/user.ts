@@ -20,7 +20,7 @@ export async function registerTenant(app: NestFastifyApplication) {
 
   const approval = await approvalService.findOne({
     where: {
-      id: signUpResponse.json().data.approvalId,
+      id: signUpResponse.json().approvalId,
     },
   });
 
@@ -42,7 +42,7 @@ export async function registerTenant(app: NestFastifyApplication) {
     } satisfies SignInRequest,
   });
 
-  const accessToken = token.json().data.accessToken;
+  const accessToken = token.json().accessToken;
 
   const tenant = await tenantService.findOne({
     where: {
