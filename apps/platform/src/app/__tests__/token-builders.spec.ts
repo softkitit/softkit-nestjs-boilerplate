@@ -99,7 +99,7 @@ describe('token builder tests e2e tests', () => {
 
       const signInResponseBody = response.json();
 
-      const accessToken = signInResponseBody.data.accessToken;
+      const accessToken = signInResponseBody.accessToken;
 
       const tokenPayload: any =
         await tokenService.verifyAccessToken(accessToken);

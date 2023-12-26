@@ -17,7 +17,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignUpByEmailResponseDTO"
+                }
+              }
+            }
           },
           "409": {
             "description": "Appears when user with such email already exists",
@@ -63,7 +70,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignUpByEmailResponseDTO"
+                }
+              }
+            }
           },
           "409": {
             "description": "Appears when user with such email already exists",
@@ -135,7 +149,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignInResponseDTO"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -547,7 +568,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetupSamlConfigurationResponseDTO"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -813,6 +841,22 @@
           "lastName"
         ]
       },
+      "SignUpByEmailResponseDTO": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "approvalId": {
+            "type": "string",
+            "description": "id of approval entity, for future reuse"
+          }
+        },
+        "required": [
+          "message",
+          "approvalId"
+        ]
+      },
       "SignUpByEmailWithTenantCreationRequest": {
         "type": "object",
         "properties": {
@@ -875,6 +919,25 @@
         },
         "required": [
           "email"
+        ]
+      },
+      "SignInResponseDTO": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "accessToken": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message",
+          "accessToken",
+          "refreshToken"
         ]
       },
       "InitiateSamlLoginRequest": {
@@ -1592,6 +1655,21 @@
           "certificate",
           "fieldsMapping",
           "enabled"
+        ]
+      },
+      "SetupSamlConfigurationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message",
+          "id"
         ]
       }
     }

@@ -236,14 +236,14 @@ describe('auth e2e test', () => {
           password: signUpDto.password,
         },
       });
-
       expect(response.statusCode).toBe(200);
       const body = JSON.parse(response.body);
-      expect(body.message).toBeDefined();
-      expect(body.data.accessToken).toBeDefined();
-      expect(body.data.refreshToken).toBeDefined();
 
-      expect(body.data.accessToken).not.toBe(body.data.refreshToken);
+      expect(body.message).toBeDefined();
+      expect(body.accessToken).toBeDefined();
+      expect(body.refreshToken).toBeDefined();
+
+      expect(body.accessToken).not.toBe(body.refreshToken);
     });
   });
 
