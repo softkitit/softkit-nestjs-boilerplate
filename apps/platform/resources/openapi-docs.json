@@ -1660,28 +1660,16 @@
       "SetupSamlConfigurationResponseDTO": {
         "type": "object",
         "properties": {
-          "entryPoint": {
-            "type": "string"
-          },
-          "certificate": {
-            "type": "string"
-          },
-          "fieldsMapping": {
-            "$ref": "#/components/schemas/IdpMappingDto"
-          },
-          "enabled": {
-            "type": "boolean"
-          },
           "message": {
+            "type": "string"
+          },
+          "id": {
             "type": "string"
           }
         },
         "required": [
-          "entryPoint",
-          "certificate",
-          "fieldsMapping",
-          "enabled",
-          "message"
+          "message",
+          "id"
         ]
       }
     }
