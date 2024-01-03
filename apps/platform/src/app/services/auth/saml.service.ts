@@ -70,7 +70,10 @@ export class SamlService {
     res: FastifyReply,
     replyData?: Record<string, unknown>,
   ) {
-    const config = await this.samlConfigService.findOneById(samlConfigId);
+    const config = await this.samlConfigService.findOneById(
+      samlConfigId,
+      false,
+    );
 
     if (!config) {
       this.logger.warn(

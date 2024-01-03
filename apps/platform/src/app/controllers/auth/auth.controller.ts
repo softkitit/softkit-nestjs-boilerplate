@@ -6,6 +6,7 @@ import {
   Post,
   Req,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { FastifyReply, FastifyRequest } from 'fastify';
@@ -17,7 +18,12 @@ import {
 } from '@saas-buildkit/nestjs-i18n';
 import { AuthService, SamlService } from '../../services';
 
-import { SkipAuth } from '@softkit/auth';
+import {
+  CurrentUser,
+  IRefreshTokenPayload,
+  RefreshJwtAuthGuard,
+  SkipAuth,
+} from '@softkit/auth';
 import { ApiConflictResponsePaginated } from '@softkit/common-types';
 import {
   SignUpByEmailRequest,
@@ -157,5 +163,17 @@ export class AuthController {
     }
 
     return this.samlService.login(initiateRequest, req, res);
+  }
+
+  @SkipAuth()
+  @Post('refresh-access-token')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(RefreshJwtAuthGuard)
+  public async refreshAccessToken(@CurrentUser() user: IRefreshTokenPayload) {
+    const token = await this.authService.refreshAccessToken(user.email);
+
+    return {
+      accessToken: token,
+    };
   }
 }

@@ -13,6 +13,7 @@ module.exports = {
     '.module.ts',
     'database/seeds',
     'database/factories',
+    'permission.entity.ts',
   ],
   coverageThreshold: {
     global: {

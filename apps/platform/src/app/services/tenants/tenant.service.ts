@@ -2,10 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Transactional } from 'typeorm-transactional';
 import { Tenant, UserProfile } from '../../database/entities';
 import { TenantsRepository } from '../../repositories';
-
-import { UserRoleService } from '../roles/user-role.service';
 import { BaseEntityService } from '@softkit/typeorm-service';
-import { SamlConfig } from '../../config/saml.config';
 import { ConflictEntityCreationException } from '@softkit/exceptions';
 import { TenantStatus } from '../../database/entities/tenants/vo/tenant-status.enum';
 
@@ -16,21 +13,8 @@ export class TenantService extends BaseEntityService<
 > {
   private readonly logger = new Logger(TenantService.name);
 
-  constructor(
-    private readonly samlConfig: SamlConfig,
-    private customUserRoleService: UserRoleService,
-    tenantsRepository: TenantsRepository,
-  ) {
+  constructor(tenantsRepository: TenantsRepository) {
     super(tenantsRepository);
-  }
-
-  async findTenantIdByIdentifier(tenantFriendlyIdentifier: string) {
-    return await this.findOne({
-      where: {
-        tenantFriendlyIdentifier,
-      },
-      select: ['id'],
-    }).then((tenant) => tenant?.id);
   }
 
   @Transactional()

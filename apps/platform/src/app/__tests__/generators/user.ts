@@ -43,15 +43,20 @@ export async function registerTenant(app: NestFastifyApplication) {
   });
 
   const accessToken = token.json().accessToken;
+  const refreshToken = token.json().refreshToken;
 
   const tenant = await tenantService.findOne({
     where: {
       tenantFriendlyIdentifier: signUpDto.companyIdentifier,
     },
+    relations: ['owner'],
   });
 
   return {
     adminAccessToken: accessToken,
+    userRefreshToken: refreshToken,
     tenant,
+    userEmail: signUpDto.email,
+    user: tenant.owner,
   };
 }

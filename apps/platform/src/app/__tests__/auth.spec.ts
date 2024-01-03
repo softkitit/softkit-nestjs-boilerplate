@@ -248,6 +248,33 @@ describe('auth e2e test', () => {
   });
 
   describe('approve signup', () => {
+    it('approval entity not found', async () => {
+      const signUpResponse = await app.inject({
+        method: 'POST',
+        url: 'api/platform/v1/auth/tenant-signup',
+        payload: signUpDto,
+      });
+
+      expect(signUpResponse.statusCode).toBe(201);
+
+      const approvals = await approvalService.findAll();
+      expect(approvals.length).toBe(1);
+
+      const approvalObject = approvals[0];
+
+      const approveSignUp = await app.inject({
+        method: 'POST',
+        url: 'api/platform/v1/auth/approve-signup',
+        payload: {
+          id: faker.string.uuid(),
+          code: approvalObject.code,
+          password: signUpDto.password,
+          repeatedPassword: signUpDto.password,
+        } as ApproveSignUpRequest,
+      });
+
+      expect(approveSignUp.statusCode).toBe(404);
+    });
     it('should successfully approve signup', async () => {
       const signUpResponse = await app.inject({
         method: 'POST',
