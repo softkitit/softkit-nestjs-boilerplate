@@ -6,6 +6,7 @@ import {
   Post,
   Req,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { FastifyReply, FastifyRequest } from 'fastify';
@@ -17,18 +18,21 @@ import {
 } from '@saas-buildkit/nestjs-i18n';
 import { AuthService, SamlService } from '../../services';
 
-import { SkipAuth } from '@softkit/auth';
 import {
-  ApiConflictResponsePaginated,
-  SimpleResponseForCreatedEntityWithMessage,
-} from '@softkit/common-types';
+  CurrentUser,
+  IRefreshTokenPayload,
+  RefreshJwtAuthGuard,
+  SkipAuth,
+} from '@softkit/auth';
+import { ApiConflictResponsePaginated } from '@softkit/common-types';
 import {
   SignUpByEmailRequest,
+  SignUpByEmailResponseDTO,
   SignUpByEmailWithTenantCreationRequest,
 } from './vo/sign-up.dto';
 import { ApproveSignUpRequest } from './vo/approve.dto';
 import { I18nTranslations } from '../../generated/i18n.generated';
-import { SignInRequest } from './vo/sign-in.dto';
+import { SignInRequest, SignInResponseDTO } from './vo/sign-in.dto';
 import { AbstractSignupService } from '../../services/auth/signup/signup.service.interface';
 import { InitiateSamlLoginRequest } from './vo/saml.dto';
 import { decodeBase64StringObjectFromUrl } from '@softkit/string-utils';
@@ -60,16 +64,15 @@ export class AuthController {
   public async signUp(
     @I18n() i18n: I18nContext<I18nTranslations>,
     @Body() request: SignUpByEmailRequest,
-  ): Promise<SimpleResponseForCreatedEntityWithMessage<string>> {
+  ): Promise<SignUpByEmailResponseDTO> {
     // depends on chosen workflow you can respond with tokens here and let user in
-    const response = await this.signUpService.signUp(request);
-
-    return {
-      message: i18n.t('user.FINISHED_REGISTRATION'),
-      data: {
-        id: response.approvalId,
-      },
-    };
+    return this.signUpService.signUp(request).then((response) => {
+      const responseDTO = map(response, SignUpByEmailResponseDTO);
+      return {
+        ...responseDTO,
+        message: i18n.t('user.FINISHED_REGISTRATION'),
+      };
+    });
   }
 
   @Post('tenant-signup')
@@ -81,16 +84,15 @@ export class AuthController {
   public async signUpWithTenantCreation(
     @I18n() i18n: I18nContext<I18nTranslations>,
     @Body() request: SignUpByEmailWithTenantCreationRequest,
-  ): Promise<SimpleResponseForCreatedEntityWithMessage<string>> {
+  ): Promise<SignUpByEmailResponseDTO> {
     // depends on chosen workflow you can respond with tokens here and let user in
-    const response = await this.signUpService.signUp(request);
-
-    return {
-      message: i18n.t('user.FINISHED_REGISTRATION'),
-      data: {
-        id: response.approvalId,
-      },
-    };
+    return this.signUpService.signUp(request).then((response) => {
+      const responseDTO = map(response, SignUpByEmailResponseDTO);
+      return {
+        ...responseDTO,
+        message: i18n.t('user.FINISHED_REGISTRATION'),
+      };
+    });
   }
 
   /**
@@ -116,16 +118,16 @@ export class AuthController {
   public async signIn(
     @I18n() i18n: I18nContext,
     @Body() request: SignInRequest,
-  ) {
-    const tokens = await this.authService.signIn(
-      request.email,
-      request.password,
-    );
-
-    return {
-      message: this.i18.t('user.SUCCESSFULLY_LOGGED_IN'),
-      data: tokens,
-    };
+  ): Promise<SignInResponseDTO> {
+    return this.authService
+      .signIn(request.email, request.password)
+      .then((tokens) => {
+        const responseDTO = map(tokens, SignInResponseDTO);
+        return {
+          ...responseDTO,
+          message: this.i18.t('user.SUCCESSFULLY_LOGGED_IN'),
+        };
+      });
   }
 
   @Post('sso/saml/login')
@@ -161,5 +163,17 @@ export class AuthController {
     }
 
     return this.samlService.login(initiateRequest, req, res);
+  }
+
+  @SkipAuth()
+  @Post('refresh-access-token')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(RefreshJwtAuthGuard)
+  public async refreshAccessToken(@CurrentUser() user: IRefreshTokenPayload) {
+    const token = await this.authService.refreshAccessToken(user.email);
+
+    return {
+      accessToken: token,
+    };
   }
 }

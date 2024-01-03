@@ -14,6 +14,8 @@ import {
 } from '@softkit/exceptions';
 import { InitiateSamlLoginRequest } from '../../../controllers/auth/vo/saml.dto';
 import { map } from '@softkit/validation';
+import { AuthErrorCodes } from './vo/auth-error-codes.enum';
+import { ErrorCodes } from '../../../common/vo/error-codes.enum';
 
 export class SamlStrategy extends PassportStrategy(Strategy, 'saml') {
   private readonly logger = new Logger(SamlStrategy.name);
@@ -70,6 +72,7 @@ export class SamlStrategy extends PassportStrategy(Strategy, 'saml') {
       );
 
       const errorResponse = new GeneralUnauthorizedException(
+        AuthErrorCodes.MISSING_STATE_DATA,
         new Error(`Missing required state data`),
       ).toErrorResponse(
         this.request.id,
@@ -107,6 +110,7 @@ export class SamlStrategy extends PassportStrategy(Strategy, 'saml') {
     );
 
     const errorResponse = new GeneralUnauthorizedException(
+      AuthErrorCodes.SAML_AUTHENTICATION_FAILURE,
       new Error(`Saml authentication failed with challenge ${challenge}`),
     ).toErrorResponse(
       this.request.id,
@@ -131,6 +135,7 @@ export class SamlStrategy extends PassportStrategy(Strategy, 'saml') {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   override error(err: Error) {
     const errorResponse = new GeneralInternalServerException(
+      ErrorCodes.INTERNAL_SERVER_ERROR,
       err,
     ).toErrorResponse(
       this.request.id,

@@ -30,7 +30,9 @@ export class UserService extends BaseEntityService<
         relations: ['userTenantsAccounts', 'userTenantsAccounts.roles'],
         where: {
           email: email.toLowerCase().trim(),
-          ...(tenantId ? { tenantId } : {}),
+          userTenantsAccounts: {
+            tenantId,
+          },
         },
       },
       false,

@@ -2,13 +2,19 @@ import { faker } from '@faker-js/faker';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SignUpByEmailWithTenantCreationRequest } from '../controllers/auth/vo/sign-up.dto';
-import { ExternalApprovalService, TenantService } from '../services';
+import {
+  ExternalApprovalService,
+  TenantService,
+  UserService,
+} from '../services';
 import { StartedDb, startPostgres } from '@softkit/test-utils';
 import { bootstrapBaseWebApp } from '@softkit/bootstrap';
 import { ApproveSignUpRequest } from '../controllers/auth/vo/approve.dto';
 import { AbstractSignupService } from '../services/auth/signup/signup.service.interface';
 import { TenantSignupService } from '../services/auth/signup/tenant-signup.service';
 import { successSignupDto } from './generators/signup';
+import { registerTenant } from './generators/user';
+import { UserProfileStatus } from '../database/entities/users/types/user-profile-status.enum';
 
 const signUpDto: SignUpByEmailWithTenantCreationRequest = successSignupDto();
 
@@ -16,6 +22,7 @@ describe('tenant auth e2e test', () => {
   let app: NestFastifyApplication;
   let approvalService: ExternalApprovalService;
   let tenantService: TenantService;
+  let userService: UserService;
   let db: StartedDb;
 
   beforeAll(async () => {
@@ -44,6 +51,7 @@ describe('tenant auth e2e test', () => {
     app = await bootstrapBaseWebApp(moduleFixture, PlatformAppModule);
 
     approvalService = app.get(ExternalApprovalService);
+    userService = app.get(UserService);
     tenantService = app.get(TenantService);
   });
 
@@ -110,10 +118,90 @@ describe('tenant auth e2e test', () => {
       expect(response.statusCode).toBe(200);
       const body = JSON.parse(response.body);
       expect(body.message).toBeDefined();
-      expect(body.data.accessToken).toBeDefined();
-      expect(body.data.refreshToken).toBeDefined();
+      expect(body.accessToken).toBeDefined();
+      expect(body.refreshToken).toBeDefined();
 
-      expect(body.data.accessToken).not.toBe(body.data.refreshToken);
+      expect(body.accessToken).not.toBe(body.refreshToken);
+    });
+
+    describe('refresh access token', () => {
+      it('successful refresh-access-token', async () => {
+        const { userRefreshToken } = await registerTenant(app);
+
+        const response = await app.inject({
+          method: 'POST',
+          url: 'api/platform/v1/auth/refresh-access-token',
+          headers: {
+            Authorization: `Bearer ${userRefreshToken}`,
+          },
+        });
+
+        expect(response.statusCode).toBe(200);
+        const body = JSON.parse(response.body);
+        expect(body.accessToken).toBeDefined();
+      });
+
+      it('unsuccessful refresh-access-token', async () => {
+        const { userRefreshToken, userEmail, tenant } =
+          await registerTenant(app);
+
+        const user = await userService.findOneByEmail(userEmail, tenant.id);
+        await userService.createOrUpdateEntity({
+          ...user,
+          status: UserProfileStatus.DEACTIVATED,
+        });
+
+        const response = await app.inject({
+          method: 'POST',
+          url: 'api/platform/v1/auth/refresh-access-token',
+          headers: {
+            Authorization: `Bearer ${userRefreshToken}`,
+          },
+        });
+
+        expect(response.statusCode).toBe(401);
+      });
+    });
+
+    it('should not register second user because it is already exists', async () => {
+      const signUpResponse = await app.inject({
+        method: 'POST',
+        url: 'api/platform/v1/auth/tenant-signup',
+        payload: signUpDto,
+      });
+
+      expect(signUpResponse.statusCode).toBe(201);
+
+      const secondSignUpResponse = await app.inject({
+        method: 'POST',
+        url: 'api/platform/v1/auth/tenant-signup',
+        payload: signUpDto,
+      });
+
+      expect(secondSignUpResponse.statusCode).toBe(409);
+    });
+
+    it('should not register user because this tenant identifier already exists', async () => {
+      const signUpResponse = await app.inject({
+        method: 'POST',
+        url: 'api/platform/v1/auth/tenant-signup',
+        payload: signUpDto,
+      });
+
+      expect(signUpResponse.statusCode).toBe(201);
+
+      const secondSignUpDto = successSignupDto();
+
+      const secondSignUpResponse = await app.inject({
+        method: 'POST',
+        url: 'api/platform/v1/auth/tenant-signup',
+        payload: {
+          ...secondSignUpDto,
+          companyIdentifier: signUpDto.companyIdentifier,
+        },
+      });
+
+      expect(secondSignUpResponse.statusCode).toBe(409);
     });
   });
 });

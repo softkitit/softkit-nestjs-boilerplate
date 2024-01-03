@@ -3,9 +3,12 @@ import { ApiTags } from '@nestjs/swagger';
 import { I18nService } from '@saas-buildkit/nestjs-i18n';
 import { SamlConfigurationService, TenantService } from '../../services';
 
-import { SetupSamlConfiguration } from './vo/saml-configuration.dto';
-import { SimpleResponseForCreatedEntityWithMessage } from '@softkit/common-types';
+import {
+  SetupSamlConfiguration,
+  SetupSamlConfigurationResponseDTO,
+} from './vo/saml-configuration.dto';
 import { I18nTranslations } from '../../generated/i18n.generated';
+import { map } from '@softkit/validation';
 
 @ApiTags('Tenants')
 @Controller({
@@ -23,15 +26,15 @@ export class TenantsConfigurationController {
   @HttpCode(HttpStatus.OK)
   public async setupSaml(
     @Body() request: SetupSamlConfiguration,
-  ): Promise<SimpleResponseForCreatedEntityWithMessage<string>> {
-    const result =
-      await this.samlConfigurationService.createOrUpdateEntity(request);
-
-    return {
-      data: {
-        id: result.id,
-      },
-      message: this.i18.t('tenant.SAML_CONFIGURATION_FINISHED'),
-    };
+  ): Promise<SetupSamlConfigurationResponseDTO> {
+    return this.samlConfigurationService
+      .createOrUpdateEntity(request)
+      .then((result) => {
+        const responseDTO = map(result, SetupSamlConfigurationResponseDTO);
+        return {
+          ...responseDTO,
+          message: this.i18.t('tenant.SAML_CONFIGURATION_FINISHED'),
+        };
+      });
   }
 }

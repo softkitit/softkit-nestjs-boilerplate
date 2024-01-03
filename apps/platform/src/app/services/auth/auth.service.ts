@@ -69,7 +69,7 @@ export class AuthService {
     } else {
       const defaultRole = await this.roleService.findDefaultUserRole();
 
-      if (!defaultRole) {
+      /* istanbul ignore next */ if (!defaultRole) {
         /**
          *  this should never happen, but just in case we need to react and help
          *  most likely it's some basic configuration issue, or issue after refactoring
@@ -120,7 +120,6 @@ export class AuthService {
   @Transactional()
   async refreshAccessToken(email: string) {
     const user = await this.userAuthService.findUserByEmail(email);
-
     if (!user || user.status !== UserProfileStatus.ACTIVE) {
       throw new GeneralUnauthorizedException();
     }
