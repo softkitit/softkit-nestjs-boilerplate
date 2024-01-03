@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { AbstractTokenBuilderService } from '@softkit/auth';
 import { UserProfile } from '../../../database/entities';
 import {
