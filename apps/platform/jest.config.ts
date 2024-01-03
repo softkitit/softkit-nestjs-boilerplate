@@ -8,10 +8,10 @@ export default {
   transformIgnorePatterns: ['/node_modules/(?!nest-typed-config)'],
   coverageThreshold: {
     global: {
-      lines: 90,
-      statements: 90,
-      functions: 90,
-      branches: 70,
+      lines: 100,
+      statements: 100,
+      functions: 100,
+      branches: 100,
     },
   },
   transform: {

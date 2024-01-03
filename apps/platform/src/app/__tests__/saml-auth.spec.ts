@@ -9,7 +9,7 @@ import {
 } from '../services';
 import { StartedDb, startPostgres } from '@softkit/test-utils';
 import { bootstrapBaseWebApp } from '@softkit/bootstrap';
-import { SAMLConfiguration, Tenant } from '../database/entities';
+import { SAMLConfiguration, Tenant, UserRole } from '../database/entities';
 import { HttpStatus } from '@nestjs/common';
 import { AbstractSignupService } from '../services/auth/signup/signup.service.interface';
 import { TenantSignupService } from '../services/auth/signup/tenant-signup.service';
@@ -17,12 +17,19 @@ import { successSignupDto } from './generators/signup';
 import { SignUpByEmailWithTenantCreationRequest } from '../controllers/auth/vo/sign-up.dto';
 import { InitiateSamlLoginRequest } from '../controllers/auth/vo/saml.dto';
 import { AuthConfig } from '@softkit/auth';
+import { FastifyRequest } from 'fastify';
+import AbstractAuthUserService from '../services/auth/abstract-auth-user.service';
+import { createRole } from './generators/role';
+import { registerTenant } from './generators/user';
 
 describe('saml auth e2e test', () => {
   let app: NestFastifyApplication;
   let db: StartedDb;
   let firstUserSignupDto: SignUpByEmailWithTenantCreationRequest;
   let secondUserSignupDto: SignUpByEmailWithTenantCreationRequest;
+  let userAuthService: AbstractAuthUserService;
+  let accessToken: string;
+  let currentTenant: Tenant;
 
   beforeAll(async () => {
     db = await startPostgres({
@@ -47,6 +54,12 @@ describe('saml auth e2e test', () => {
       .useClass(TenantSignupService)
       .compile();
     app = await bootstrapBaseWebApp(moduleFixture, PlatformAppModule);
+    userAuthService = app.get<AbstractAuthUserService>(AbstractAuthUserService);
+
+    const { tenant, adminAccessToken } = await registerTenant(app);
+
+    accessToken = adminAccessToken;
+    currentTenant = tenant;
   });
 
   afterEach(async () => {
@@ -74,6 +87,44 @@ describe('saml auth e2e test', () => {
           const strategy = await samlService.createStrategy(
             samlLoginRequest.samlConfigurationId,
             req,
+            res,
+            replyData,
+          );
+
+          await strategy.success(
+            {
+              email: userEmail,
+              [AuthService.LAST_NAME_SAML_ATTR]: faker.person.lastName(),
+              attributes: {
+                [AuthService.FIRST_NAME_SAML_ATTR]: faker.person.firstName(),
+              },
+            },
+            null,
+          );
+        });
+    }
+
+    function mockSuccessSamlStrategyCallWithMalformedRelayState(
+      userEmail = faker.internet.email(),
+    ) {
+      const malformedRelayState = Buffer.from(
+        JSON.stringify({
+          samlConfigurationId: samlConfiguration.id,
+        }),
+      ).toString('base64');
+      jest
+        .spyOn(samlService, 'login')
+        .mockImplementation(async (samlLoginRequest, req, res, replyData) => {
+          // @ts-ignore
+          const strategy = await samlService.createStrategy(
+            samlLoginRequest.samlConfigurationId,
+            {
+              ...req,
+              body: {
+                ...(req.body as any),
+                RelayState: malformedRelayState,
+              },
+            } as FastifyRequest,
             res,
             replyData,
           );
@@ -144,14 +195,13 @@ describe('saml auth e2e test', () => {
     it('should return 500 if the token is expired', async () => {
       const samlLoginResponse = await app.inject({
         method: 'POST',
-        // eslint-disable-next-line max-len
         url: `api/platform/v1/auth/sso/saml/login`,
         headers: {
           host: `http://localhost:30000`,
           [authConfig.headerTenantId]: tenantWithSamlConfiguration.id,
         },
         body: {
-          redirectUrl: 'https://example.com/successfull-login',
+          redirectUrl: 'https://example.com/successful-login',
           samlConfigurationId: samlConfiguration.id,
         } satisfies InitiateSamlLoginRequest,
       });
@@ -182,14 +232,13 @@ describe('saml auth e2e test', () => {
     it('should return 404 on saml auth for not configured tenant', async () => {
       const samlLoginResponse = await app.inject({
         method: 'POST',
-        // eslint-disable-next-line max-len
         url: `api/platform/v1/auth/sso/saml/login`,
         headers: {
           [authConfig.headerTenantId]: tenantWithoutSamlConfiguration.id,
           host: `http://localhost:30000`,
         },
         body: {
-          redirectUrl: 'https://example.com/successfull-login',
+          redirectUrl: 'https://example.com/successful-login',
           samlConfigurationId: samlConfiguration.id,
         } satisfies InitiateSamlLoginRequest,
       });
@@ -213,7 +262,7 @@ describe('saml auth e2e test', () => {
       expect(samlMetadataResponse.body).toContain('<?xml version="1.0"?>');
     });
 
-    it('should successfully sign in 3 times in a row', async () => {
+    it('should successfuly sign in 3 times in a row', async () => {
       const samlLoginResponse = await app.inject({
         method: 'POST',
         url: `api/platform/v1/auth/sso/saml/login`,
@@ -222,7 +271,7 @@ describe('saml auth e2e test', () => {
           [authConfig.headerTenantId]: tenantWithSamlConfiguration.id,
         },
         body: {
-          redirectUrl: 'https://example.com/successfull-login',
+          redirectUrl: 'https://example.com/successful-login',
           samlConfigurationId: samlConfiguration.id,
         } satisfies InitiateSamlLoginRequest,
       });
@@ -267,14 +316,13 @@ describe('saml auth e2e test', () => {
     it('should sign in as owner through saml', async () => {
       const samlLoginResponse = await app.inject({
         method: 'POST',
-        // eslint-disable-next-line max-len
         url: `api/platform/v1/auth/sso/saml/login`,
         headers: {
           host: `http://localhost:30000`,
           [authConfig.headerTenantId]: tenantWithSamlConfiguration.id,
         },
         body: {
-          redirectUrl: 'https://example.com/successfull-login',
+          redirectUrl: 'https://example.com/successful-login',
           samlConfigurationId: samlConfiguration.id,
         },
       });
@@ -326,7 +374,7 @@ describe('saml auth e2e test', () => {
           [authConfig.headerTenantId]: tenantWithSamlConfiguration.id,
         },
         body: {
-          redirectUrl: 'https://example.com/successfull-login',
+          redirectUrl: 'https://example.com/successful-login',
           samlConfigurationId: samlConfiguration.id,
         },
       });
@@ -383,7 +431,7 @@ describe('saml auth e2e test', () => {
           [authConfig.headerTenantId]: tenantWithSamlConfiguration.id,
         },
         body: {
-          redirectUrl: 'https://example.com/successfull-login',
+          redirectUrl: 'https://example.com/successful-login',
           samlConfigurationId: samlConfiguration.id,
         },
       });
@@ -436,7 +484,7 @@ describe('saml auth e2e test', () => {
           [authConfig.headerTenantId]: tenantWithSamlConfiguration.id,
         },
         body: {
-          redirectUrl: 'https://example.com/successfull-login',
+          redirectUrl: 'https://example.com/successful-login',
           samlConfigurationId: samlConfiguration.id,
         },
       });
@@ -475,6 +523,117 @@ describe('saml auth e2e test', () => {
       });
 
       expect(samlCallbackResponse.statusCode).toBe(500);
+    });
+
+    it('should not pass saml strategy with missed configuration id or missed redirect url', async () => {
+      const samlLoginResponse = await app.inject({
+        method: 'POST',
+        url: `api/platform/v1/auth/sso/saml/login`,
+        headers: {
+          host: `http://localhost:30000`,
+          [authConfig.headerTenantId]: tenantWithSamlConfiguration.id,
+        },
+        body: {
+          redirectUrl: 'https://example.com/successful-login',
+          samlConfigurationId: samlConfiguration.id,
+        },
+      });
+
+      expect(samlLoginResponse.statusCode).toBe(302);
+
+      const redirectUrl = samlLoginResponse.headers.location;
+      const url = new URL(redirectUrl?.toString()!);
+      const relayState = url.searchParams.get('RelayState');
+
+      mockSuccessSamlStrategyCallWithMalformedRelayState();
+
+      const samlCallbackResponse = await app.inject({
+        method: 'POST',
+        url: 'api/platform/v1/auth/sso/saml/ac',
+        headers: {
+          host: `http://localhost:30000`,
+        },
+        payload: {
+          SAMLResponse: samlResponse,
+          RelayState: relayState,
+        },
+      });
+
+      expect(samlCallbackResponse.statusCode).toBe(401);
+    });
+
+    it('should pass saml strategy', async () => {
+      const role = createRole();
+
+      const createdRoleResponse = await app.inject({
+        method: 'POST',
+        url: 'api/platform/v1/roles',
+        payload: role,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          [authConfig.headerTenantId]: currentTenant.id,
+        },
+      });
+
+      const createdRole = createdRoleResponse.json<UserRole>();
+
+      await userAuthService.createSsoUser(
+        tenantWithSamlConfiguration.id,
+        faker.internet.email(),
+        faker.person.firstName(),
+        faker.person.lastName(),
+        [createdRole],
+        faker.string.uuid(),
+      );
+    });
+
+    it('should not pass saml strategy without tenant config', async () => {
+      const samlLoginResponse = await app.inject({
+        method: 'POST',
+        url: `api/platform/v1/auth/sso/saml/login`,
+        headers: {
+          host: `http://localhost:30000`,
+          [authConfig.headerTenantId]: tenantWithSamlConfiguration.id,
+        },
+        body: {
+          redirectUrl: 'https://example.com/successful-login',
+          samlConfigurationId: samlConfiguration.id,
+        },
+      });
+
+      expect(samlLoginResponse.statusCode).toBe(302);
+
+      const redirectUrl = samlLoginResponse.headers.location;
+      const url = new URL(redirectUrl?.toString()!);
+      const relayState = url.searchParams.get('RelayState');
+
+      jest
+        .spyOn(samlService, 'login')
+        .mockImplementation(async (_, req, res, replyData) => {
+          // @ts-ignore
+          const strategy = await samlService.createStrategy(
+            faker.string.uuid(),
+            req,
+            res,
+            replyData,
+          );
+
+          await strategy.pass();
+        });
+
+      const samlCallbackResponse = await app.inject({
+        method: 'POST',
+        url: 'api/platform/v1/auth/sso/saml/ac',
+        headers: {
+          host: `http://localhost:30000`,
+        },
+        payload: {
+          SAMLResponse: samlResponse,
+          RelayState: relayState,
+        },
+      });
+
+      expect(samlCallbackResponse.statusCode).toBe(404);
     });
   });
 });
