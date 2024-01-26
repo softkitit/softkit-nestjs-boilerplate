@@ -4892,7 +4892,7 @@ __metadata:
     "@types/passport-local": 1.0.38
     "@types/supertest": 2.0.16
     "@types/uuid": 9.0.7
-    axios: 1.6.3
+    axios: 1.6.7
     class-transformer: 0.5.1
     class-validator: 0.14.0
     eslint: 8.48.0
@@ -4902,7 +4902,6 @@ __metadata:
     jest-environment-jsdom: 29.7.0
     jest-environment-node: 29.7.0
     jest-extended: 4.0.2
-    nest-typed-config: 2.9.2
     nestjs-cls: 3.6.0
     nestjs-paginate: 8.6.0
     nestjs-pino: 3.5.0
@@ -4914,8 +4913,6 @@ __metadata:
     passport-local: 1.0.0
     passport-saml: 3.2.4
     pg: 8.11.3
-    pino-http: 8.6.1
-    pino-pretty: 10.3.1
     prettier: 3.1.1
     reflect-metadata: 0.1.14
     rimraf: 5.0.5
@@ -4931,7 +4928,6 @@ __metadata:
     tslib: 2.6.2
     typeorm: 0.3.17
     typeorm-extension: 3.2.0
-    typeorm-naming-strategies: 4.1.0
     typeorm-transactional: 0.4.1
     typescript: 5.2.2
     verdaccio: 5.29.0
@@ -5441,12 +5437,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 20.11.6
-  resolution: "@types/node@npm:20.11.6"
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
+  version: 20.11.7
+  resolution: "@types/node@npm:20.11.7"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 54b3739f42d9c2266fd724d8ecbf50bc64eb0563343b65a6ea874a51a7fc8bb4793bf3a1b2222e40e3b7bd62cf5af5609899bf1a3de8b69748dcac65e63e8bdc
+  checksum: 61ea0718bccda31110c643190518407b7c50d26698a20e3522871608db5fa3d2d43d1ae57c609068eae6996d563db43326045a90f22a9aacc825e8d6c7aea2ce
   languageName: node
   linkType: hard
 
@@ -5466,15 +5462,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
-  version: 20.11.7
-  resolution: "@types/node@npm:20.11.7"
-  dependencies:
-    undici-types: ~5.26.4
-  checksum: 61ea0718bccda31110c643190518407b7c50d26698a20e3522871608db5fa3d2d43d1ae57c609068eae6996d563db43326045a90f22a9aacc825e8d6c7aea2ce
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:^10.0.3":
   version: 10.17.60
   resolution: "@types/node@npm:10.17.60"
@@ -5483,11 +5470,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:^18.11.18":
-  version: 18.19.9
-  resolution: "@types/node@npm:18.19.9"
+  version: 18.19.10
+  resolution: "@types/node@npm:18.19.10"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 8ffd4043ada193cf32d4c13eb850e8c510d4c96504c62fdc5326b3bb2c7ddc2c81892c351b2c0c403c29df3ab13c864a370f0282daf6d3380ba3c2001728a643
+  checksum: eea429c1fe8d25702c1e860f5c4ac053db3c52a5884646f458513b622a507660a6c88c717ee4f106e63c82f4ec6cafbf999e3f3f1d3083f7a40b4f715e03332b
   languageName: node
   linkType: hard
 
@@ -7053,18 +7040,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.6.3":
-  version: 1.6.3
-  resolution: "axios@npm:1.6.3"
-  dependencies:
-    follow-redirects: ^1.15.0
-    form-data: ^4.0.0
-    proxy-from-env: ^1.1.0
-  checksum: 07ef3bb83fc2dacc1ae2c97f2bbd04ef7701f5655f9037789d79ee78b698ffa50eaa8465c2017d4d3e9ce7d94cb779f730acaab32ce9036d0a4933c1e89df4da
-  languageName: node
-  linkType: hard
-
-"axios@npm:^1.5.1":
+"axios@npm:1.6.7, axios@npm:^1.5.1":
   version: 1.6.7
   resolution: "axios@npm:1.6.7"
   dependencies:
@@ -13751,7 +13727,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nest-typed-config@npm:2.9.2, nest-typed-config@npm:^2.9.1":
+"nest-typed-config@npm:^2.9.1":
   version: 2.9.2
   resolution: "nest-typed-config@npm:2.9.2"
   dependencies:

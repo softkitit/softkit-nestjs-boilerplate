@@ -100,7 +100,6 @@
     "class-transformer": "0.5.1",
     "class-validator": "0.14.0",
     "ioredis": "5.3.2",
-    "nest-typed-config": "2.9.2",
     "nestjs-cls": "3.6.0",
     "nestjs-paginate": "8.6.0",
     "nestjs-pino": "3.5.0",
@@ -110,15 +109,12 @@
     "passport-local": "1.0.0",
     "passport-saml": "3.2.4",
     "pg": "8.11.3",
-    "pino-http": "8.6.1",
-    "pino-pretty": "10.3.1",
     "reflect-metadata": "0.1.14",
     "rxjs": "7.8.1",
     "ts-patch": "3.1.1",
     "tslib": "2.6.2",
     "typeorm": "0.3.17",
     "typeorm-extension": "3.2.0",
-    "typeorm-naming-strategies": "4.1.0",
     "typeorm-transactional": "0.4.1"
   },
   "nx": {

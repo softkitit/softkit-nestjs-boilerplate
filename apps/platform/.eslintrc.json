@@ -30,9 +30,7 @@
               "tslib",
               "pg",
               "reflect-metadata",
-              "rxjs",
-              "pino-http",
-              "pino-pretty"
+              "rxjs"
             ]
           }
         ]
