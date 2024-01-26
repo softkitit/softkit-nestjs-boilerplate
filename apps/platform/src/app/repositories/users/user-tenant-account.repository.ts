@@ -9,13 +9,16 @@ import {
 import { ClsService } from 'nestjs-cls';
 
 @Injectable()
-export class UserTenantAccountRepository extends BaseRepository<UserTenantAccount> {
+export class UserTenantAccountRepository extends BaseRepository<
+  UserTenantAccount,
+  'id'
+> {
   constructor(
     @InjectDataSource()
     ds: DataSource,
     clsService: ClsService<TenantClsStore>,
   ) {
-    super(UserTenantAccount, ds, clsService);
+    super(UserTenantAccount, ds, 'id', clsService);
   }
 
   public async hasAnyPermission(

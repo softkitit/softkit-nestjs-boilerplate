@@ -5,11 +5,11 @@ import { UserRole } from '../../database/entities';
 import { BaseRepository } from '@softkit/typeorm';
 
 @Injectable()
-export class UserRoleRepository extends BaseRepository<UserRole> {
+export class UserRoleRepository extends BaseRepository<UserRole, 'id'> {
   constructor(
     @InjectDataSource()
     ds: DataSource,
   ) {
-    super(UserRole, ds);
+    super(UserRole, ds, 'id');
   }
 }

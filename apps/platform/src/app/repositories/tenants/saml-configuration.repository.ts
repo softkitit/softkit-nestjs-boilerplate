@@ -6,12 +6,15 @@ import { SAMLConfiguration } from '../../database/entities';
 import { BaseTenantRepository, TenantClsStore } from '@softkit/typeorm';
 
 @Injectable()
-export class SamlConfigurationRepository extends BaseTenantRepository<SAMLConfiguration> {
+export class SamlConfigurationRepository extends BaseTenantRepository<
+  SAMLConfiguration,
+  'id'
+> {
   constructor(
     @InjectDataSource()
     ds: DataSource,
     clsService: ClsService<TenantClsStore>,
   ) {
-    super(SAMLConfiguration, ds, clsService);
+    super(SAMLConfiguration, ds, 'id', clsService);
   }
 }

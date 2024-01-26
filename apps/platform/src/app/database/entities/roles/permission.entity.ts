@@ -7,11 +7,13 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  VersionColumn,
 } from 'typeorm';
 import { PermissionCategory } from './permission-category.entity';
 import { BaseEntityHelper } from '@softkit/typeorm';
 import { Expose } from 'class-transformer';
 import {
+  IsNumberLocalized,
   IsStringCombinedLocalized,
   IsUUIDLocalized,
 } from '@softkit/validation';
@@ -70,5 +72,10 @@ export class Permission extends BaseEntityHelper {
     eager: false,
   })
   @JoinColumn()
-  permissionCategory!: PermissionCategory | null;
+  permissionCategory?: PermissionCategory;
+
+  @VersionColumn()
+  @IsNumberLocalized()
+  @Expose()
+  version!: number;
 }

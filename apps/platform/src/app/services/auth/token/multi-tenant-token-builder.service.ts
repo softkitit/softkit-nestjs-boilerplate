@@ -20,7 +20,10 @@ export class MultiTenantTokenBuilderService extends AbstractTokenBuilderService<
       lastName: user.lastName,
       tenants: (user.userTenantsAccounts || []).map((tenantAccount) => ({
         tenantId: tenantAccount.tenantId,
-        roles: tenantAccount.roles?.map((role) => role.id),
+        roles: tenantAccount.roles?.map((role) => ({
+          roleId: role.id,
+          roleType: role.roleType,
+        })),
       })),
     };
   }

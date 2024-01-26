@@ -15,7 +15,7 @@ export const userProfileFactory = setSeederFactory(
       status: UserProfileStatus.ACTIVE,
     } satisfies ExcludeKeys<
       UserProfile,
-      typeof DEFAULT_CREATE_ENTITY_EXCLUDE_LIST
+      typeof DEFAULT_CREATE_ENTITY_EXCLUDE_LIST | 'id' | 'version'
     >;
 
     return plainToInstance(UserProfile, plainUserProfile);

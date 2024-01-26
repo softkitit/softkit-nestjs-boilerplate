@@ -6,7 +6,9 @@ import { BaseEntityService } from '@softkit/typeorm-service';
 @Injectable()
 export class ExternalApprovalService extends BaseEntityService<
   ExternalApproval,
-  ExternalApprovalsRepository
+  'id',
+  ExternalApprovalsRepository,
+  Pick<ExternalApproval, 'id' | 'version'>
 > {
   constructor(private readonly usersRepository: ExternalApprovalsRepository) {
     super(usersRepository);

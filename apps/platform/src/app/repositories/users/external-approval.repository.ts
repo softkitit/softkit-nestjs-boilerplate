@@ -5,11 +5,14 @@ import { ExternalApproval } from '../../database/entities';
 import { BaseRepository } from '@softkit/typeorm';
 
 @Injectable()
-export class ExternalApprovalsRepository extends BaseRepository<ExternalApproval> {
+export class ExternalApprovalsRepository extends BaseRepository<
+  ExternalApproval,
+  'id'
+> {
   constructor(
     @InjectDataSource()
     ds: DataSource,
   ) {
-    super(ExternalApproval, ds);
+    super(ExternalApproval, ds, 'id');
   }
 }

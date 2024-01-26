@@ -5,11 +5,14 @@ import { SAMLConfiguration } from '../../database/entities';
 import { BaseRepository } from '@softkit/typeorm';
 
 @Injectable()
-export class SamlConfigurationBaseRepository extends BaseRepository<SAMLConfiguration> {
+export class SamlConfigurationBaseRepository extends BaseRepository<
+  SAMLConfiguration,
+  'id'
+> {
   constructor(
     @InjectDataSource()
     ds: DataSource,
   ) {
-    super(SAMLConfiguration, ds);
+    super(SAMLConfiguration, ds, 'id');
   }
 }

@@ -4,6 +4,14 @@
   "sourceRoot": "apps/platform/src",
   "projectType": "application",
   "targets": {
+    "generate-client": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "openapi-generator-cli generate -i ./apps/platform/resources/openapi-docs.json -g typescript-axios -o libs/clients/platform/src/lib/generated -c ./apps/platform/resources/openapi-server-generator.config.yaml"
+        ]
+      }
+    },
     "build": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],

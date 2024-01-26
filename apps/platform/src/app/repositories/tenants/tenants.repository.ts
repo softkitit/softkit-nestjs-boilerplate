@@ -5,11 +5,11 @@ import { Tenant } from '../../database/entities';
 import { BaseRepository } from '@softkit/typeorm';
 
 @Injectable()
-export class TenantsRepository extends BaseRepository<Tenant> {
+export class TenantsRepository extends BaseRepository<Tenant, 'id'> {
   constructor(
     @InjectDataSource()
     readonly ds: DataSource,
   ) {
-    super(Tenant, ds);
+    super(Tenant, ds, 'id');
   }
 }

@@ -14,12 +14,12 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserRoleService } from '../../services';
 import {
   CreateUserRole,
-  UserRoleWithoutPermission,
   ROLES_PAGINATION_CONFIG,
   UpdateUserRole,
+  UserRoleWithoutPermission,
 } from './vo/role.dto';
 import { IdParamUUID, VersionNumberParam } from '@softkit/common-types';
-import { Permissions } from '@softkit/auth';
+import { Permissions, Roles } from '@softkit/auth';
 import {
   Paginate,
   Paginated,
@@ -27,6 +27,7 @@ import {
   PaginateQuery,
 } from 'nestjs-paginate';
 import { map } from '@softkit/validation';
+import { RoleType } from '../../database/entities/roles/types/default-role.enum';
 
 @ApiTags('Roles')
 @Controller({
@@ -38,6 +39,7 @@ export class RolesController {
   constructor(private readonly userRoleService: UserRoleService) {}
 
   @Get()
+  @Roles<RoleType>([RoleType.ADMIN, RoleType.SUPER_ADMIN])
   @Permissions('platform.roles.read')
   @PaginatedSwaggerDocs(UserRoleWithoutPermission, ROLES_PAGINATION_CONFIG)
   async findAll(

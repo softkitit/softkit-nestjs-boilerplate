@@ -4,11 +4,13 @@ import {
   Index,
   OneToMany,
   PrimaryGeneratedColumn,
+  VersionColumn,
 } from 'typeorm';
 import { Permission } from './permission.entity';
 import { BaseEntityHelper } from '@softkit/typeorm';
 import { Expose } from 'class-transformer';
 import {
+  IsNumberLocalized,
   IsStringCombinedLocalized,
   IsUUIDLocalized,
 } from '@softkit/validation';
@@ -42,5 +44,10 @@ export class PermissionCategory extends BaseEntityHelper {
     (permission) => permission.permissionCategoryId,
     { eager: false },
   )
-  permissions!: Permission[];
+  permissions?: Permission[];
+
+  @VersionColumn()
+  @IsNumberLocalized()
+  @Expose()
+  version!: number;
 }

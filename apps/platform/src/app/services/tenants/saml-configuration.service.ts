@@ -7,7 +7,9 @@ import { BaseTenantEntityService } from '@softkit/typeorm-service';
 @Injectable()
 export class SamlConfigurationService extends BaseTenantEntityService<
   SAMLConfiguration,
-  SamlConfigurationRepository
+  'id',
+  SamlConfigurationRepository,
+  Pick<SAMLConfiguration, 'id' | 'version'>
 > {
   constructor(samlConfigurationService: SamlConfigurationRepository) {
     super(samlConfigurationService);

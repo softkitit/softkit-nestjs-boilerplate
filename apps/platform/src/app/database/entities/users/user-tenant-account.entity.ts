@@ -6,6 +6,7 @@ import {
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
+  VersionColumn,
 } from 'typeorm';
 
 import { BaseTenantEntityHelper as BaseEntity } from '@softkit/typeorm';
@@ -14,7 +15,11 @@ import { Tenant } from '../tenants/tenant.entity';
 import { UserRole } from '../roles/user-role.entity';
 import { UserAccountStatus } from './types/user-account-status.enum';
 import { Expose } from 'class-transformer';
-import { IsStringEnumLocalized, IsUUIDLocalized } from '@softkit/validation';
+import {
+  IsNumberLocalized,
+  IsStringEnumLocalized,
+  IsUUIDLocalized,
+} from '@softkit/validation';
 
 @Entity('user_tenant_accounts')
 @Index(['tenantId', 'userProfileId'])
@@ -63,4 +68,9 @@ export class UserTenantAccount extends BaseEntity {
     cascade: false,
   })
   tenant?: Tenant;
+
+  @VersionColumn()
+  @IsNumberLocalized()
+  @Expose()
+  version!: number;
 }
