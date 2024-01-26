@@ -5,12 +5,14 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  VersionColumn,
 } from 'typeorm';
 import { ApprovalType } from './types/approval-type.enum';
 
 import { UserProfile } from './user-profile.entity';
 import { BaseEntityHelper } from '@softkit/typeorm';
 import {
+  IsNumberLocalized,
   IsStringCombinedLocalized,
   IsStringEnumLocalized,
   IsUUIDLocalized,
@@ -55,5 +57,10 @@ export class ExternalApproval extends BaseEntityHelper {
     eager: true,
   })
   @JoinColumn()
-  user: UserProfile;
+  user!: UserProfile;
+
+  @VersionColumn()
+  @IsNumberLocalized()
+  @Expose()
+  version!: number;
 }

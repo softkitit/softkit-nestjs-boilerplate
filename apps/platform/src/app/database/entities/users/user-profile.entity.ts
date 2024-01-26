@@ -4,6 +4,7 @@ import {
   Index,
   OneToMany,
   PrimaryGeneratedColumn,
+  VersionColumn,
 } from 'typeorm';
 
 import { UserProfileStatus } from './types/user-profile-status.enum';
@@ -11,6 +12,7 @@ import { BaseEntityHelper } from '@softkit/typeorm';
 import { UserTenantAccount } from './user-tenant-account.entity';
 import {
   IsEmailLocalized,
+  IsNumberLocalized,
   IsStringCombinedLocalized,
   IsStringEnumLocalized,
   IsUUIDLocalized,
@@ -60,4 +62,9 @@ export class UserProfile extends BaseEntityHelper {
     eager: false,
   })
   userTenantsAccounts?: UserTenantAccount[];
+
+  @VersionColumn()
+  @IsNumberLocalized()
+  @Expose()
+  version!: number;
 }

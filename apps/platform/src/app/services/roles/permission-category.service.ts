@@ -6,7 +6,9 @@ import { BaseEntityService } from '@softkit/typeorm-service';
 @Injectable()
 export class PermissionCategoryService extends BaseEntityService<
   PermissionCategory,
-  PermissionCategoryRepository
+  'id',
+  PermissionCategoryRepository,
+  Pick<PermissionCategory, 'id' | 'version'>
 > {
   constructor(repository: PermissionCategoryRepository) {
     super(repository);

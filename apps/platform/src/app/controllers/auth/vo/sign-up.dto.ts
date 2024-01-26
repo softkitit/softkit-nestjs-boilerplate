@@ -12,6 +12,7 @@ import { Expose } from 'class-transformer';
 export class BaseSignUpByEmailRequest extends OmitType(UserProfile, [
   ...DEFAULT_CREATE_ENTITY_EXCLUDE_LIST,
   'id',
+  'version',
   'status',
   'userTenantsAccounts',
 ] as const) {

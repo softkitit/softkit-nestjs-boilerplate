@@ -8,7 +8,9 @@ import { BaseEntityService } from '@softkit/typeorm-service';
 @Injectable()
 export class UserService extends BaseEntityService<
   UserProfile,
-  UserRepository
+  'id',
+  UserRepository,
+  Pick<UserProfile, 'id' | 'version'>
 > {
   constructor(private readonly usersRepository: UserRepository) {
     super(usersRepository);

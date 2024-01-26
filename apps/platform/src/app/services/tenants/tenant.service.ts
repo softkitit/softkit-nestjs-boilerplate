@@ -9,7 +9,9 @@ import { TenantStatus } from '../../database/entities/tenants/vo/tenant-status.e
 @Injectable()
 export class TenantService extends BaseEntityService<
   Tenant,
-  TenantsRepository
+  'id',
+  TenantsRepository,
+  Pick<Tenant, 'id' | 'version'>
 > {
   private readonly logger = new Logger(TenantService.name);
 

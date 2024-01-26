@@ -4,12 +4,14 @@ import {
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  VersionColumn,
 } from 'typeorm';
 
 import { Tenant } from './tenant.entity';
 import { BaseTenantEntityHelper } from '@softkit/typeorm';
 import {
   IsBooleanLocalized,
+  IsNumberLocalized,
   IsStringCombinedLocalized,
   IsUUIDLocalized,
 } from '@softkit/validation';
@@ -46,5 +48,10 @@ export class SAMLConfiguration extends BaseTenantEntityHelper {
     eager: false,
   })
   @JoinColumn()
-  tenant?: Tenant | null;
+  tenant?: Tenant;
+
+  @VersionColumn()
+  @IsNumberLocalized()
+  @Expose()
+  version!: number;
 }

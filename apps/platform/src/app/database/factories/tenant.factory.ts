@@ -13,7 +13,10 @@ export const tenantFactory = setSeederFactory(Tenant, (_, meta) => {
     tenantStatus: TenantStatus.ACTIVE,
     tenantFriendlyIdentifier: faker.company.name(),
     ownerId: '',
-  } satisfies ExcludeKeys<Tenant, typeof DEFAULT_CREATE_ENTITY_EXCLUDE_LIST>;
+  } satisfies ExcludeKeys<
+    Tenant,
+    typeof DEFAULT_CREATE_ENTITY_EXCLUDE_LIST | 'id' | 'version'
+  >;
 
   if (isMeta(meta)) {
     plainTenant.ownerId = meta.ownerId;

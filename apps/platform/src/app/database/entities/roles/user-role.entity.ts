@@ -6,6 +6,7 @@ import {
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
+  VersionColumn,
 } from 'typeorm';
 import { Tenant } from '../tenants/tenant.entity';
 import { Permission } from './permission.entity';
@@ -13,6 +14,7 @@ import { RoleType } from './types/default-role.enum';
 import { BaseEntityHelper, ClsPreset, TenantClsStore } from '@softkit/typeorm';
 import { Expose } from 'class-transformer';
 import {
+  IsNumberLocalized,
   IsStringCombinedLocalized,
   IsStringEnumLocalized,
   IsUUIDLocalized,
@@ -77,4 +79,9 @@ export class UserRole extends BaseEntityHelper {
   })
   @JoinColumn()
   tenant?: Tenant | null;
+
+  @VersionColumn()
+  @IsNumberLocalized()
+  @Expose()
+  version!: number;
 }

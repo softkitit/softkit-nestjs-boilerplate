@@ -13,7 +13,9 @@ import { ClassConstructor } from 'class-transformer';
 @Injectable()
 export class UserRoleService extends BaseEntityService<
   UserRole,
-  UserRoleRepository
+  'id',
+  UserRoleRepository,
+  Pick<UserRole, 'id' | 'version'>
 > {
   constructor(
     repository: UserRoleRepository,

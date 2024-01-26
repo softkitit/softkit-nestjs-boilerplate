@@ -6,6 +6,7 @@ import {
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  VersionColumn,
 } from 'typeorm';
 import { BaseEntityHelper } from '@softkit/typeorm';
 import { UserTenantAccount } from '../users/user-tenant-account.entity';
@@ -14,6 +15,7 @@ import { UserProfile } from '../users/user-profile.entity';
 import { TenantStatus } from './vo/tenant-status.enum';
 import { Expose } from 'class-transformer';
 import {
+  IsNumberLocalized,
   IsStringCombinedLocalized,
   IsStringEnumLocalized,
   IsUUIDLocalized,
@@ -72,4 +74,9 @@ export class Tenant extends BaseEntityHelper {
     eager: false,
   })
   tenantUsersAccount?: UserTenantAccount[];
+
+  @VersionColumn()
+  @IsNumberLocalized()
+  @Expose()
+  version!: number;
 }

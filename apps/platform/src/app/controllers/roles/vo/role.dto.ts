@@ -19,6 +19,8 @@ export class CreateUserRole extends OmitType(UserRole, [
   'tenant',
   'permissions',
   'tenantId',
+  'id',
+  'version',
 ] as const) {}
 
 export class UpdateUserRole extends OmitType(UserRole, [

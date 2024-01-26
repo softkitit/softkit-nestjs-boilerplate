@@ -6,7 +6,9 @@ import { BaseEntityService as BaseService } from '@softkit/typeorm-service';
 @Injectable()
 export class UserTenantAccountService extends BaseService<
   UserTenantAccount,
-  UserTenantAccountRepository
+  'id',
+  UserTenantAccountRepository,
+  Pick<UserTenantAccount, 'id' | 'version'>
 > {
   constructor(repository: UserTenantAccountRepository) {
     super(repository);

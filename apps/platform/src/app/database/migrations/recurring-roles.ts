@@ -3,7 +3,7 @@ import { RoleType } from '../entities/roles/types/default-role.enum';
 import { Logger } from '@nestjs/common';
 
 export class RecurringRoles implements MigrationInterface {
-  name = 'RecurringRoles1687682172344';
+  name = 'RecurringRoles1687682172346';
   private readonly logger = new Logger('RecurringRoles');
 
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -277,7 +277,7 @@ export class RecurringRoles implements MigrationInterface {
 
     // eslint-disable-next-line unicorn/no-array-reduce
     return roles.reduce((acc, role) => {
-      acc[role.roleType] = role;
+      acc[role.role_type] = role;
       return acc;
     }, {});
   }

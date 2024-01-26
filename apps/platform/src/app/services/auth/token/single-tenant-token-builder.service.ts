@@ -35,7 +35,9 @@ export class SingleTenantTokenBuilderService extends AbstractTokenBuilderService
       firstName: user.firstName,
       lastName: user.lastName,
       tenantId: tenantAccount.tenantId,
-      roles: tenantAccount.roles.map((role) => role.id),
+      roles: tenantAccount.roles.map((role) => ({
+        roleId: role.id,
+      })),
     };
   }
 
