@@ -15,7 +15,7 @@ import {
   I18nContext,
   I18nService,
   I18nValidationException,
-} from '@saas-buildkit/nestjs-i18n';
+} from '@softkit/i18n';
 import { AuthService, SamlService } from '../../services';
 
 import {

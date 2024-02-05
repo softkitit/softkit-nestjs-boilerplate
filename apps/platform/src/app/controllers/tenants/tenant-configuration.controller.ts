@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { I18nService } from '@saas-buildkit/nestjs-i18n';
+import { I18nService } from '@softkit/i18n';
 import { SamlConfigurationService, TenantService } from '../../services';
 
 import {

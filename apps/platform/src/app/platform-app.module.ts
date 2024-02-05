@@ -14,7 +14,7 @@ import AbstractAuthUserService from './services/auth/abstract-auth-user.service'
 import * as Seeders from './database/seeds';
 import * as Factories from './database/factories';
 import AuthUserService from './services/users/auth-user.service';
-import { setupI18NModule } from '@softkit/i18n';
+import {I18nModule, setupI18NModule} from '@softkit/i18n';
 import { setupLoggerModule } from '@softkit/logger';
 import { setupYamlBaseConfigModule } from '@softkit/config';
 import { setupClsModule } from '@softkit/async-storage';
@@ -40,9 +40,11 @@ import { MultiTenantTokenBuilderService } from './services/auth/token/multi-tena
 import { AccessCheckService } from './services';
 import { AbstractSignupService } from './services/auth/signup/signup.service.interface';
 import { TenantSignupService } from './services/auth/signup/tenant-signup.service';
+import {i18nOptions} from "./i18n-options";
 
 @Module({
   imports: [
+    I18nModule.forRoot(i18nOptions),
     JwtModule,
     setupI18NModule(__dirname),
     setupLoggerModule(),

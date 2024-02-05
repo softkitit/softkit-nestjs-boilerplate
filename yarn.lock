@@ -4056,30 +4056,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@saas-buildkit/nestjs-i18n@npm:11.1.3":
-  version: 11.1.3
-  resolution: "@saas-buildkit/nestjs-i18n@npm:11.1.3"
-  dependencies:
-    accept-language-parser: ^1.5.0
-    chalk: ^4.1.2
-    chokidar: ^3.5.3
-    cookie: ^0.5.0
-    iterare: ^1.2.1
-    js-yaml: ^4.1.0
-    mergician: ^1.1.0
-    string-format: ^2.0.0
-    yargs: ^17.7.2
-  peerDependencies:
-    "@nestjs/common": "*"
-    "@nestjs/core": "*"
-    class-validator: "*"
-    rxjs: "*"
-  bin:
-    nestjs-i18n: dist/cli.js
-  checksum: 8d592f06368dda732b6bc418e4333fb6c88df7f3033d599f3f626211b9d816c35b623df0d130cc167e05e6e9d8ac5180545e6b79fe2ead92e1220206ec44396d
-  languageName: node
-  linkType: hard
-
 "@sinclair/typebox@npm:^0.27.8":
   version: 0.27.8
   resolution: "@sinclair/typebox@npm:0.27.8"
@@ -4616,18 +4592,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/async-storage@npm:0.0.9":
-  version: 0.0.9
-  resolution: "@softkit/async-storage@npm:0.0.9"
+"@softkit/async-storage@npm:0.0.10":
+  version: 0.0.10
+  resolution: "@softkit/async-storage@npm:0.0.10"
   peerDependencies:
     nestjs-cls: ^3.5.1
-  checksum: bce23b9885612cf7ce7737d91bb128339d8a235d3bb34e2c651f22464622b68e052e189cf9a2a9c211e4fb5daaa201b1b2532a48bf917bc793edba744fa6a679
+  checksum: 3fd0010f89972ff05f73f76886ff73f6e2515d5d69e312826b2e9218a0dd68c3f1d06dcf241fb26121d0195a0690a98aac45955bdb9b45232e296ae15c872790
   languageName: node
   linkType: hard
 
-"@softkit/auth@npm:1.0.7":
-  version: 1.0.7
-  resolution: "@softkit/auth@npm:1.0.7"
+"@softkit/auth@npm:1.0.8":
+  version: 1.0.8
+  resolution: "@softkit/auth@npm:1.0.8"
   dependencies:
     passport-jwt: 4.0.1
     passport-saml: 3.2.4
@@ -4642,20 +4618,19 @@ __metadata:
     fastify: ^4.0.0
     nestjs-cls: ^3.0.0
     rxjs: "*"
-  checksum: 40f40e0907110b6296f48f8b75313276694edddd5adbcd5e071673366a657e4ca78befc87255b310e4076b606e2d0c42ed35444ee0395c2fd2ef43381ef59e5f
+  checksum: 3bde64272661466c2c3ebdc3516aebc0f3601fcb18640ebe9852a1cb1f293c6974fac1fe139bcb154e7cd2e3aafddb3da68543d54edcd62f38c9e4ea8c54c1b3
   languageName: node
   linkType: hard
 
-"@softkit/bootstrap@npm:0.2.6":
-  version: 0.2.6
-  resolution: "@softkit/bootstrap@npm:0.2.6"
+"@softkit/bootstrap@npm:0.2.8":
+  version: 0.2.8
+  resolution: "@softkit/bootstrap@npm:0.2.8"
   peerDependencies:
     "@fastify/helmet": ^11.0.0
     "@nestjs/common": ^10.0.0
     "@nestjs/core": ^10.0.0
     "@nestjs/platform-fastify": ^10.0.0
     "@nestjs/testing": 10.2.4
-    "@saas-buildkit/nestjs-i18n": ^11.0.0
     "@softkit/crypto": ^0.0.6
     "@softkit/exceptions": ^0.1.3
     "@softkit/i18n": ^0.1.1
@@ -4671,41 +4646,41 @@ __metadata:
     typeorm: ^0.3.0
     typeorm-extension: ^3.0.0
     typeorm-transactional: ^0.4.0
-  checksum: b1dd1efccf531be98d6486124d7bc8139421c8470fc4f189fd8258b8e770b974983ce9ec1c5be8d34f2b15f4c7a6f8d8b6f9266e03ecbfff185b7b4939c81356
+  checksum: af2fea195d9b01bb8e1a665a67131d0f19601bcc06fa0fabe477bb54a1ad304aa182ec42d074c53677bdc1b0d4625cb25b120468c141531edad1e3838a02147d
   languageName: node
   linkType: hard
 
-"@softkit/common-types@npm:0.2.1":
-  version: 0.2.1
-  resolution: "@softkit/common-types@npm:0.2.1"
-  checksum: 0327438d3986d5193b069a390863da5e36253df1815f484877ba0928dd10cc4a9cc5ee1daf7c425c9e06490c61c0e64c3543788ba2b61808f198f5792b36d391
+"@softkit/common-types@npm:0.2.2":
+  version: 0.2.2
+  resolution: "@softkit/common-types@npm:0.2.2"
+  checksum: 2a420cb68ca328ecf8590ee9f54476094c17f8561d793eeca0b433b3697d3f13f8df492a49d7c5e583496abfe310b6789ba185914e3349527c984103bf948484
   languageName: node
   linkType: hard
 
-"@softkit/config@npm:0.1.3":
-  version: 0.1.3
-  resolution: "@softkit/config@npm:0.1.3"
+"@softkit/config@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@softkit/config@npm:0.2.0"
   dependencies:
     nest-typed-config: ^2.9.1
   peerDependencies:
     "@nestjs/common": ^10.0.0
-  checksum: 417599a79e6fd72f49169c08c11d8f9e11ce0b4199154ece3c56d0a540c1988313235a64b3d94ee16af13af02120e37cd94e9f29a595104c63e7306639f3d53a
+  checksum: 2ea9bfad8a245fabf17a1db78650147e3a874d683074bc96dca9976bc8a64039ec7c667f7ba14303430d534fa176a1b3594a4db59ceee04276c583edbf0bf456
   languageName: node
   linkType: hard
 
-"@softkit/crypto@npm:0.0.7":
-  version: 0.0.7
-  resolution: "@softkit/crypto@npm:0.0.7"
+"@softkit/crypto@npm:0.0.8":
+  version: 0.0.8
+  resolution: "@softkit/crypto@npm:0.0.8"
   dependencies:
     argon2: 0.31.0
     nanoid: ^3.3.6
-  checksum: 037046cf0b1bb8bdc3320c812ab66ae9e3fdf88b1940781a5d1759ff780218eb7aeeb1fc5a68edfe08ef532957e597079d0a7d342832288937333f345cb3a4cd
+  checksum: 25884fe26063e183fb01561d31a0132a1d24e9c295c4deaddb1977b23db85c9013754e40212515ae014287f7b9c1c10233bd32dc84542c5e62e675c77c048040
   languageName: node
   linkType: hard
 
-"@softkit/eslint-backend@npm:0.1.1":
-  version: 0.1.1
-  resolution: "@softkit/eslint-backend@npm:0.1.1"
+"@softkit/eslint-backend@npm:0.1.2":
+  version: 0.1.2
+  resolution: "@softkit/eslint-backend@npm:0.1.2"
   dependencies:
     "@typescript-eslint/eslint-plugin": 6.6.0
     "@typescript-eslint/parser": 6.9.1
@@ -4721,25 +4696,25 @@ __metadata:
   peerDependencies:
     "@nx/eslint-plugin": ^17.0.0
     eslint: ^8.0.0
-  checksum: 00e7acdf7733318aa746fcae81b029eed56c5b0650929b1f857ebb94f19b7df1473149520a5075747a498783221816c5807a5bf1c3613bb4aef3c4e9f64a76c1
+  checksum: 0c1e6291835e1e4ff60991349a5df8f9abcba6895fcd9f39a4adb70b3a46032695ad7336c4f9ad6f88896e75b079fab4607d93cacd300d711f5896d53e87766e
   languageName: node
   linkType: hard
 
-"@softkit/exceptions@npm:0.1.4":
-  version: 0.1.4
-  resolution: "@softkit/exceptions@npm:0.1.4"
+"@softkit/exceptions@npm:0.1.5":
+  version: 0.1.5
+  resolution: "@softkit/exceptions@npm:0.1.5"
   peerDependencies:
     "@nestjs/common": ^10.0.0
     "@nestjs/core": ^10.0.0
     "@nestjs/swagger": ^7.0.0
-    "@saas-buildkit/nestjs-i18n": ^11.0.0
-  checksum: 4e267743c6f6c69f36cb1c3bb530a4f0d7d8564b29fa043cef5f7512716e011ca7d37d3a297c495a718404498daf6fa5cbafd245a0d064fadc99e024e5a1b997
+    "@softkit/i18n": ^0.1.3
+  checksum: c24780c0e7f3740bccd2287c30dcb956157bba6d08f07cc5b3a46ce923b8ad404625e302e482efe4f15c8ef4de398c7b2e97b6443619730a46e4d64fa0effe01
   languageName: node
   linkType: hard
 
-"@softkit/health-check@npm:0.0.8":
-  version: 0.0.8
-  resolution: "@softkit/health-check@npm:0.0.8"
+"@softkit/health-check@npm:0.0.9":
+  version: 0.0.9
+  resolution: "@softkit/health-check@npm:0.0.9"
   peerDependencies:
     "@nestjs/common": ^10.0.0
     "@nestjs/swagger": ^7.0.0
@@ -4748,25 +4723,49 @@ __metadata:
     "@softkit/validation": ^0.3.5
     class-transformer: "*"
     class-validator: "*"
-  checksum: 96ae937c19f76c0d6a29bd37d9e6ea7467249b1b040cb9fc0a6eb28157955d09775a1440ec4cdb574474fefe69a5b5d494232e32cb71adcb8f7c81b419b0f061
+  checksum: db489aab2abcf7a0640df6113c5a9e4e1ae377e14cb2eedc51a98e08e7479494ae96a89599edbac3df04d0fe195a9d6b892c32c9cd64e94384d256e55f4557aa
   languageName: node
   linkType: hard
 
-"@softkit/i18n@npm:0.1.2":
-  version: 0.1.2
-  resolution: "@softkit/i18n@npm:0.1.2"
+"@softkit/i18n@npm:0.4.0":
+  version: 0.4.0
+  resolution: "@softkit/i18n@npm:0.4.0"
+  dependencies:
+    accept-language-parser: 1.5.0
+    chalk: 4.1.2
+    chokidar: 3.5.3
+    cookie: 0.5.0
+    fs-extra: 11.1.1
+    iterare: 1.2.1
+    js-yaml: 4.1.0
+    mergician: 2.0.0
+    string-format: 2.0.0
+    yargs: 17.7.2
   peerDependencies:
+    "@grpc/grpc-js": ^1.6.0
     "@nestjs/common": ^10.0.0
-    "@saas-buildkit/nestjs-i18n": ^11.0.0
-    "@softkit/exceptions": ^0.1.3
+    "@nestjs/core": ^10.0.0
+    "@nestjs/graphql": ^12.0.0
     class-validator: "*"
-  checksum: 7b9c3d38f32d053b1d88160559b6d1c7508f6e63a9ad0be82a31e91dbd7fafd33e1eb9ebc356396b4cd9bf775e26100cda93579408af75ed9b5c3f649de0e42a
+    hbs: ^4.2.0
+    reflect-metadata: ^0.1.0
+    rxjs: ^7.0.0
+  peerDependenciesMeta:
+    ejs:
+      optional: true
+    hbs:
+      optional: true
+    pug:
+      optional: true
+  bin:
+    i18n: src/lib/cli.js
+  checksum: 539765f6a876b5abbfafac0cfc0339ca13a708d5c4d91c0d6c6ef3a80429e5aeac0fe5ff6d706a7ab604b0ffe908d268aab2965e2dad047225b82f367069d672
   languageName: node
   linkType: hard
 
-"@softkit/logger@npm:0.1.2":
-  version: 0.1.2
-  resolution: "@softkit/logger@npm:0.1.2"
+"@softkit/logger@npm:0.1.3":
+  version: 0.1.3
+  resolution: "@softkit/logger@npm:0.1.3"
   dependencies:
     pino-http: 8.6.1
     pino-pretty: 10.3.1
@@ -4776,13 +4775,13 @@ __metadata:
     nestjs-cls: ^3.0.0
     nestjs-pino: ^3.4.0
     rxjs: ^7.0.0
-  checksum: f348933b214fbfe08c287498e72b264cac1d3bed5eb66453327be4abf314897f99ef7b85c1278e6557507b7ef79125a77622eb2c9caab4dda68758675713ff7a
+  checksum: 037cbe5474d05cc715721c764c68184a67a34cd1cfcc724e8ec27c2bad24a42f5f78f249ed317ea1a782d44eadad3f0cdd89ef421c46770e7d7b4249adbc71f1
   languageName: node
   linkType: hard
 
-"@softkit/redis@npm:0.2.1":
-  version: 0.2.1
-  resolution: "@softkit/redis@npm:0.2.1"
+"@softkit/redis@npm:0.2.2":
+  version: 0.2.2
+  resolution: "@softkit/redis@npm:0.2.2"
   peerDependencies:
     "@anchan828/nest-redlock": ^0.2.7
     "@softkit/validation": "*"
@@ -4790,13 +4789,13 @@ __metadata:
     class-transformer: "*"
     class-validator: "*"
     ioredis: ^5.0.0
-  checksum: 3de7d6233e1d4fc5d3d7925507b4f058f060044b7bd6f78433c29b5ca35c23c56cb2d76456e5354da634d0c2c00fc27c82d4f7b9c45366a55adc59c1b62815b6
+  checksum: 1b6e8d26045937f88cfe4ed7eef528ed07a1b8fc0db75d1b71f0d499e572544e4a764070334f24876a3b9f4ceb2d913ce7c617fbbfc0df5325ff4de0a0710236
   languageName: node
   linkType: hard
 
-"@softkit/resource-plugin@npm:0.6.2":
-  version: 0.6.2
-  resolution: "@softkit/resource-plugin@npm:0.6.2"
+"@softkit/resource-plugin@npm:0.6.4":
+  version: 0.6.4
+  resolution: "@softkit/resource-plugin@npm:0.6.4"
   dependencies:
     change-case: 4.1.2
   peerDependencies:
@@ -4804,13 +4803,13 @@ __metadata:
     "@nx/js": ^17.0.0
     "@nx/nest": ^17.0.0
     nx: ^17.0.0
-  checksum: caa0b6c58ce0266b3913bf6258015f2dbc4dd8dcf0259e0eb3fbcdab892c6b4b50949da8033150084199adaab40201e289ffd7671096a87e66d22f92ce35843f
+  checksum: 95070a2e969be7a0d4809255542d09c461834d132cc1a833e1b65c89b576f3b72d095cbcbff61d0d25a5d74d153351defbba30653a187648d65e7524edad6312
   languageName: node
   linkType: hard
 
-"@softkit/server-http-client@npm:0.0.10":
-  version: 0.0.10
-  resolution: "@softkit/server-http-client@npm:0.0.10"
+"@softkit/server-http-client@npm:0.0.11":
+  version: 0.0.11
+  resolution: "@softkit/server-http-client@npm:0.0.11"
   dependencies:
     axios-retry: 4.0.0
     opossum: 8.1.0
@@ -4824,7 +4823,7 @@ __metadata:
     class-validator: "*"
     fastify: ^4.0.0
     nestjs-cls: ^3.5.0
-  checksum: 04bc8bb4c60af3934abd047a240473b469cce34434cf5fc0635553248c0b91e05fae3b1b12c1393b029e1ef950c175b982e1fe0ce161167ebd815bdbc4d34c7c
+  checksum: 2615256bb5246bda1b551a364732e0b8d7054afe853c1c4fbe3b29cd12fab4a1134d6a395639fa43004a237eea946b47dc00f5d2c5522db74b95240d119a9449
   languageName: node
   linkType: hard
 
@@ -4861,27 +4860,26 @@ __metadata:
     "@nx/plugin": 17.1.2
     "@nx/webpack": 17.1.2
     "@nx/workspace": 17.1.2
-    "@saas-buildkit/nestjs-i18n": 11.1.3
-    "@softkit/async-storage": 0.0.9
-    "@softkit/auth": 1.0.7
-    "@softkit/bootstrap": 0.2.6
-    "@softkit/common-types": 0.2.1
-    "@softkit/config": 0.1.3
-    "@softkit/crypto": 0.0.7
-    "@softkit/eslint-backend": 0.1.1
-    "@softkit/exceptions": 0.1.4
-    "@softkit/health-check": 0.0.8
-    "@softkit/i18n": 0.1.2
-    "@softkit/logger": 0.1.2
-    "@softkit/redis": 0.2.1
-    "@softkit/resource-plugin": 0.6.2
-    "@softkit/server-http-client": 0.0.10
+    "@softkit/async-storage": 0.0.10
+    "@softkit/auth": 1.0.8
+    "@softkit/bootstrap": 0.2.8
+    "@softkit/common-types": 0.2.2
+    "@softkit/config": 0.2.0
+    "@softkit/crypto": 0.0.8
+    "@softkit/eslint-backend": 0.1.2
+    "@softkit/exceptions": 0.1.5
+    "@softkit/health-check": 0.0.9
+    "@softkit/i18n": 0.4.0
+    "@softkit/logger": 0.1.3
+    "@softkit/redis": 0.2.2
+    "@softkit/resource-plugin": 0.6.4
+    "@softkit/server-http-client": 0.0.11
     "@softkit/string-utils": 0.0.5
-    "@softkit/swagger-utils": 0.1.2
-    "@softkit/test-utils": 0.2.2
-    "@softkit/typeorm": 0.5.1
-    "@softkit/typeorm-service": 0.1.1
-    "@softkit/validation": 0.3.6
+    "@softkit/swagger-utils": 0.1.3
+    "@softkit/test-utils": 0.2.3
+    "@softkit/typeorm": 0.5.3
+    "@softkit/typeorm-service": 0.1.2
+    "@softkit/validation": 0.3.7
     "@songkeys/nestjs-redis": 10.0.0
     "@testcontainers/postgresql": 10.4.0
     "@types/jest": 29.5.11
@@ -4941,21 +4939,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/swagger-utils@npm:0.1.2":
-  version: 0.1.2
-  resolution: "@softkit/swagger-utils@npm:0.1.2"
+"@softkit/swagger-utils@npm:0.1.3":
+  version: 0.1.3
+  resolution: "@softkit/swagger-utils@npm:0.1.3"
   peerDependencies:
     "@nestjs/common": ^10.0.0
     "@nestjs/swagger": ^7.0.0
     "@softkit/validation": ^0.3.5
     class-validator: "*"
-  checksum: eed98427dc43f489e08f35f74d5c7f165999db5e765f10ba2eb206b18dc8130866e564b8911087b3431e30d6f299462c3bf9e785d2e616d276ca611c171add62
+  checksum: 41f6b440341e90405a242f3cf113099f5709c4944cd5945131f812d08c7acfd346d8f60e88da8d84e9f789a1b5ea6e715bdeafc04f19c8de3450f9fe9e683181
   languageName: node
   linkType: hard
 
-"@softkit/test-utils@npm:0.2.2":
-  version: 0.2.2
-  resolution: "@softkit/test-utils@npm:0.2.2"
+"@softkit/test-utils@npm:0.2.3":
+  version: 0.2.3
+  resolution: "@softkit/test-utils@npm:0.2.3"
   dependencies:
     "@testcontainers/postgresql": 10.2.1
     testcontainers: 10.2.1
@@ -4974,13 +4972,13 @@ __metadata:
       optional: true
     typeorm-transactional:
       optional: true
-  checksum: aef5ad7c443c6fe6383007c20bed49a2018f3406e3b77b87e5178d9f7f08a04ca7253e6da8085f440e3745c9f24643cecaf4ba5c5846f254caf86c255c8e2db2
+  checksum: ef9eae53e7aa5e33b32ce37f38d2e0085cdab029ce464c85aa803f7d55300414266b142b599041db7c20e4d884597e4628d1076950bae488919f0323002dd08a
   languageName: node
   linkType: hard
 
-"@softkit/typeorm-service@npm:0.1.1":
-  version: 0.1.1
-  resolution: "@softkit/typeorm-service@npm:0.1.1"
+"@softkit/typeorm-service@npm:0.1.2":
+  version: 0.1.2
+  resolution: "@softkit/typeorm-service@npm:0.1.2"
   peerDependencies:
     "@softkit/common-types": ^0.2.0
     "@softkit/exceptions": ^0.1.3
@@ -4991,13 +4989,13 @@ __metadata:
     nestjs-paginate: ^8.6.0
     typeorm: ^0.3.17
     typeorm-transactional: ^0.4.0
-  checksum: 614578c2470144eb17f53c3c32f8b8b7691a6d753adca659a14761f00731a30fd2a46a9888c20245a834e1d40e4d654af6c1e598792d36a4b057380d25e95e9f
+  checksum: a96dffb49caf88f23baa93dbf15356be0f6ec48912319aa40686ca9f75d43eb25be7900bcc165caaa8b27d68d00caaa4ae5f59704c107637841e9aa5b01021b1
   languageName: node
   linkType: hard
 
-"@softkit/typeorm@npm:0.5.1":
-  version: 0.5.1
-  resolution: "@softkit/typeorm@npm:0.5.1"
+"@softkit/typeorm@npm:0.5.3":
+  version: 0.5.3
+  resolution: "@softkit/typeorm@npm:0.5.3"
   dependencies:
     typeorm-naming-strategies: 4.1.0
   peerDependencies:
@@ -5005,9 +5003,9 @@ __metadata:
     "@nestjs/core": ^10.0.0
     "@nestjs/swagger": ^7.0.0
     "@nestjs/typeorm": ^10.0.0
-    "@saas-buildkit/nestjs-i18n": ^11.1.3
     "@softkit/config": ^0.1.2
     "@softkit/exceptions": ^0.1.3
+    "@softkit/i18n": ^0.1.3
     "@softkit/string-utils": ^0.0.5
     "@softkit/validation": ^0.3.5
     class-transformer: ^0.5.1
@@ -5017,21 +5015,21 @@ __metadata:
     reflect-metadata: ^0.1.13
     typeorm: ^0.3.0
     typeorm-transactional: ^0.4.1
-  checksum: e01ab6708400259da1329296a3547cbcfe726ff0deceecea2f435fb8c06cc3feb60c4b92ae0b0422276a9fbb935068fdb60111556a7f213f5c01ab2dcb262997
+  checksum: 4f7022b5b3094eea4f3a5f20c00bbd8de266e862e114f7357d5a8b63d691e853ba136fd9e075f8c830b9d1a361b98569878b89f640247115cf7aa85b4990f2b7
   languageName: node
   linkType: hard
 
-"@softkit/validation@npm:0.3.6":
-  version: 0.3.6
-  resolution: "@softkit/validation@npm:0.3.6"
+"@softkit/validation@npm:0.3.7":
+  version: 0.3.7
+  resolution: "@softkit/validation@npm:0.3.7"
   peerDependencies:
     "@nestjs/common": ^10.0.0
-    "@saas-buildkit/nestjs-i18n": ^11.0.0
     "@softkit/exceptions": ^0.1.3
+    "@softkit/i18n": ^11.0.0
     class-transformer: ^0.5.1
     class-validator: ^0.14.0
     validator: ^13.9.0
-  checksum: 38476f4fbac0f2a335c9dc990fc17e44518ccf2cb68ef85818811d14aa9704d1ec44cf31364edd2055d9caa3475b473a4fdcc2ea6eab130da9b1a0d16df5207d
+  checksum: dcc21c89fbf1d21b78ec8cbe23fcd89b360db46c3aae059fc739abd0276ddee2022f95ec11a608fdb6a303f063c91967fbc98edb05b0122ec17416abdd26f650
   languageName: node
   linkType: hard
 
@@ -6485,7 +6483,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"accept-language-parser@npm:^1.5.0":
+"accept-language-parser@npm:1.5.0":
   version: 1.5.0
   resolution: "accept-language-parser@npm:1.5.0"
   checksum: e32124e500f67d30da7dd15462b3ff7a718df327ff8bd1c97ae02d8ee5cf0917a3f600bf3b171965b1f95fef480b96d36752f674eff2cb0069c276d9783d32f6
@@ -7676,7 +7674,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.5.3":
+"chokidar@npm:3.5.3, chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.5.3":
   version: 3.5.3
   resolution: "chokidar@npm:3.5.3"
   dependencies:
@@ -10415,6 +10413,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fs-extra@npm:11.1.1":
+  version: 11.1.1
+  resolution: "fs-extra@npm:11.1.1"
+  dependencies:
+    graceful-fs: ^4.2.0
+    jsonfile: ^6.0.1
+    universalify: ^2.0.0
+  checksum: fb883c68245b2d777fbc1f2082c9efb084eaa2bbf9fddaa366130d196c03608eebef7fb490541276429ee1ca99f317e2d73e96f5ca0999eefedf5a624ae1edfd
+  languageName: node
+  linkType: hard
+
 "fs-extra@npm:^10.0.0":
   version: 10.1.0
   resolution: "fs-extra@npm:10.1.0"
@@ -11751,7 +11760,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iterare@npm:1.2.1, iterare@npm:^1.2.1":
+"iterare@npm:1.2.1":
   version: 1.2.1
   resolution: "iterare@npm:1.2.1"
   checksum: 70bc80038e3718aa9072bc63b3a0135166d7120bde46bfcaf80a88d11005dcef1b2d69cd353849f87a3f58ba8f546a8c6e6983408236ff01fa50b52339ee5223
@@ -13284,10 +13293,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mergician@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "mergician@npm:1.1.0"
-  checksum: adefcac55ff67f118958ebbc10c30780ccd43ee45bd1e3cc80b73bb80e3fbcec31f02188e120a60a05ce7bf8ea63cc1769070369d44efaa27e2b5f047dcc7dda
+"mergician@npm:2.0.0":
+  version: 2.0.0
+  resolution: "mergician@npm:2.0.0"
+  checksum: da57223fb0bd2fc8f4abf294e714461f0d2b6cc0006e27d5b4d7b54bb63e47144a3bc23ed06fd2418a21a9919ecea6db345a34157fe151180bf98c140912d452
   languageName: node
   linkType: hard
 
@@ -16956,7 +16965,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-format@npm:^2.0.0":
+"string-format@npm:2.0.0":
   version: 2.0.0
   resolution: "string-format@npm:2.0.0"
   checksum: dada2ef95f6d36c66562c673d95315f80457fa7dce2f3609a2e75d1190b98c88319028cf0a5b6c043d01c18d581b2641579f79480584ba030d6ac6fceb30bc55
@@ -19033,6 +19042,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"yargs@npm:17.7.2, yargs@npm:^17.0.0, yargs@npm:^17.3.1, yargs@npm:^17.6.2, yargs@npm:^17.7.2":
+  version: 17.7.2
+  resolution: "yargs@npm:17.7.2"
+  dependencies:
+    cliui: ^8.0.1
+    escalade: ^3.1.1
+    get-caller-file: ^2.0.5
+    require-directory: ^2.1.1
+    string-width: ^4.2.3
+    y18n: ^5.0.5
+    yargs-parser: ^21.1.1
+  checksum: 73b572e863aa4a8cbef323dd911d79d193b772defd5a51aab0aca2d446655216f5002c42c5306033968193bdbf892a7a4c110b0d77954a7fdf563e653967b56a
+  languageName: node
+  linkType: hard
+
 "yargs@npm:^16.0.0":
   version: 16.2.0
   resolution: "yargs@npm:16.2.0"
@@ -19045,21 +19069,6 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^20.2.2
   checksum: b14afbb51e3251a204d81937c86a7e9d4bdbf9a2bcee38226c900d00f522969ab675703bee2a6f99f8e20103f608382936034e64d921b74df82b63c07c5e8f59
-  languageName: node
-  linkType: hard
-
-"yargs@npm:^17.0.0, yargs@npm:^17.3.1, yargs@npm:^17.6.2, yargs@npm:^17.7.2":
-  version: 17.7.2
-  resolution: "yargs@npm:17.7.2"
-  dependencies:
-    cliui: ^8.0.1
-    escalade: ^3.1.1
-    get-caller-file: ^2.0.5
-    require-directory: ^2.1.1
-    string-width: ^4.2.3
-    y18n: ^5.0.5
-    yargs-parser: ^21.1.1
-  checksum: 73b572e863aa4a8cbef323dd911d79d193b772defd5a51aab0aca2d446655216f5002c42c5306033968193bdbf892a7a4c110b0d77954a7fdf563e653967b56a
   languageName: node
   linkType: hard
 
