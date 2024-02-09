@@ -4737,9 +4737,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/health-check@npm:0.0.8":
-  version: 0.0.8
-  resolution: "@softkit/health-check@npm:0.0.8"
+"@softkit/health-check@npm:0.0.10":
+  version: 0.0.10
+  resolution: "@softkit/health-check@npm:0.0.10"
   peerDependencies:
     "@nestjs/common": ^10.0.0
     "@nestjs/swagger": ^7.0.0
@@ -4748,7 +4748,7 @@ __metadata:
     "@softkit/validation": ^0.3.5
     class-transformer: "*"
     class-validator: "*"
-  checksum: 96ae937c19f76c0d6a29bd37d9e6ea7467249b1b040cb9fc0a6eb28157955d09775a1440ec4cdb574474fefe69a5b5d494232e32cb71adcb8f7c81b419b0f061
+  checksum: 502771844100f1118201c8872ab93c5a0c25a01cf80e425507e0cbeac9859bc39a5dc77895f0f4960e0fa52d2572218cdcf6b7cec7adaf6eaef61bbe3fb13c08
   languageName: node
   linkType: hard
 
@@ -4870,7 +4870,7 @@ __metadata:
     "@softkit/crypto": 0.0.7
     "@softkit/eslint-backend": 0.1.1
     "@softkit/exceptions": 0.1.4
-    "@softkit/health-check": 0.0.8
+    "@softkit/health-check": 0.0.10
     "@softkit/i18n": 0.1.2
     "@softkit/logger": 0.1.2
     "@softkit/redis": 0.2.1
