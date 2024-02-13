@@ -33,7 +33,7 @@
     "@nx/plugin": "17.1.2",
     "@nx/webpack": "17.1.2",
     "@nx/workspace": "17.1.2",
-    "@softkit/resource-plugin": "0.6.5",
+    "@softkit/resource-plugin": "0.6.6",
     "@softkit/test-utils": "0.2.2",
     "@testcontainers/postgresql": "10.4.0",
     "@types/jest": "29.5.11",
