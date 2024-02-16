@@ -34,7 +34,7 @@
     "@nx/webpack": "17.1.2",
     "@nx/workspace": "17.1.2",
     "@openapitools/openapi-generator-cli": "^2.9.0",
-    "@softkit/resource-plugin": "0.6.6",
+    "@softkit/resource-plugin": "0.6.7",
     "@softkit/test-utils": "0.2.2",
     "@testcontainers/postgresql": "10.4.0",
     "@types/jest": "29.5.11",
