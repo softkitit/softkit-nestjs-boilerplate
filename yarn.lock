@@ -4858,9 +4858,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/resource-plugin@npm:0.6.11":
-  version: 0.6.11
-  resolution: "@softkit/resource-plugin@npm:0.6.11"
+"@softkit/resource-plugin@npm:0.6.13":
+  version: 0.6.13
+  resolution: "@softkit/resource-plugin@npm:0.6.13"
   dependencies:
     change-case: 4.1.2
   peerDependencies:
@@ -4868,7 +4868,7 @@ __metadata:
     "@nx/js": ^17.0.0
     "@nx/nest": ^17.0.0
     nx: ^17.0.0
-  checksum: b8cf74193479036bbc3f8bb1f9dfcb7c155ae9e9a6f0a8526d0b8248c132b72b8c1d3ad8cd383e45163b7bba64daacc2284223057b04d8b72331dbc3ca326627
+  checksum: b59eefc19044a1f41b863c47b8197c116c0b919d0e585d7e573b7196233ba5b75cad720f95f271572d8b4382b1c8c94eed8ab0e6d37e75740dc586613cd11271
   languageName: node
   linkType: hard
 
@@ -4938,7 +4938,7 @@ __metadata:
     "@softkit/i18n": 0.4.1
     "@softkit/logger": 0.1.3
     "@softkit/redis": 0.2.2
-    "@softkit/resource-plugin": 0.6.11
+    "@softkit/resource-plugin": 0.6.13
     "@softkit/server-http-client": 0.0.11
     "@softkit/string-utils": 0.0.5
     "@softkit/swagger-utils": 0.1.3
