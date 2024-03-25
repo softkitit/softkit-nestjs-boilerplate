@@ -105,7 +105,7 @@
     "nestjs-paginate": "8.6.0",
     "nestjs-pino": "3.5.0",
     "newrelic": "11.7.0",
-    "passport": "0.6.0",
+    "passport": "0.7.0",
     "passport-jwt": "4.0.1",
     "passport-local": "1.0.0",
     "passport-saml": "3.2.4",
