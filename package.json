@@ -16,7 +16,7 @@
     "upgrade-sk-libs": "yarn up \"@softkit/*\""
   },
   "devDependencies": {
-    "@commitlint/cli": "17.8.1",
+    "@commitlint/cli": "19.2.2",
     "@commitlint/config-conventional": "17.8.1",
     "@commitlint/config-nx-scopes": "18.4.3",
     "@faker-js/faker": "8.3.1",
