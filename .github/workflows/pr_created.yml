@@ -23,6 +23,8 @@ jobs:
         run: |
           echo ${{ steps.define-envs.outputs.environments }}
           echo ${{ steps.define-envs.outputs.base-name }}
+          echo ${{ vars.RELEASE_ENVIRONMENTS }}
+          echo ${{ vars.DEV_ENVIRONMENTS }}
 
 
   lint-and-run-tests:
@@ -36,7 +38,7 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -58,7 +60,7 @@ jobs:
 
       - name: Get affected projects
         id: get-affected-projects
-        run: echo "affected-projects=$(nx show projects --json --affected --type app --with-target build --base ${{ needs.prepare.outputs.base-name }})" >> $GITHUB_OUTPUT
+        run: echo 'affected-projects=$(nx show projects --json --affected --type app --with-target build --base ${{ needs.prepare.outputs.base-name }})' >> $GITHUB_OUTPUT
 
   init-state-app:
     needs: [lint-and-run-tests, prepare]
