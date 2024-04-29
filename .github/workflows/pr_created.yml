@@ -6,12 +6,22 @@ on:
       - main
     types: [ opened, reopened, synchronize ]
 
-env:
-  ENVIRONMENTS: startsWith(github.head_ref, 'release/') && ${{ vars.RELEASE_ENVIRONMENTS }} || ${{ vars.DEV_ENVIRONMENTS }}
-  BASE_NAME: startsWith(github.head_ref, 'release/') && 'last_release' || 'origin/main'
-
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      environments: ${{ steps.define-envs.outputs.environments }}
+      base-name: ${{ steps.define-envs.outputs.base-name }}
+
+    steps:
+      - name: Install environment
+        id: define-envs
+        run: |
+            echo "environments=$(startsWith(github.head_ref, 'release/') && ${{ vars.RELEASE_ENVIRONMENTS }} || ${{ vars.DEV_ENVIRONMENTS }})" >> $GITHUB_OUTPUT
+            echo "base-name=$(startsWith(github.head_ref, 'release/') && 'last_release' || 'origin/main')" >> $GITHUB_OUTPUT
+
   lint-and-run-tests:
+    needs: [prepare]
     runs-on: ubuntu-latest
     outputs:
         affected-projects: ${{ steps.get-affected-projects.outputs.affected-projects }}
@@ -30,26 +40,26 @@ jobs:
         run: yarn install
 
       - name: Run lint
-        run: npx nx affected:lint --base="${{ env.BASE_NAME }}"
+        run: npx nx affected:lint --base="${{ needs.prepare.outputs.base-name }}"
 
       - name: Pull postgres image, before running tests
         run: docker pull postgres:15.4-alpine
 
       - name: Verify changed apps and libraries are buildable
-        run: npx nx affected:build --base="${{ env.BASE_NAME }}"
+        run: npx nx affected:build --base="${{ needs.prepare.outputs.base-name }}"
 
       - name: Tests coverage
-        run: npx nx affected:test --base="${{ env.BASE_NAME }}" --codeCoverage --parallel=false
+        run: npx nx affected:test --base="${{ needs.prepare.outputs.base-name }}" --codeCoverage --parallel=false
 
       - name: Get affected projects
         id: get-affected-projects
-        run: echo "affected-projects=$(nx show projects --json --affected --type app --with-target build --base ${{ env.BASE_NAME }}) >> $GITHUB_OUTPUT
+        run: echo "affected-projects=$(nx show projects --json --affected --type app --with-target build --base ${{ needs.prepare.outputs.base-name }}) >> $GITHUB_OUTPUT
 
   init-state-app:
-    needs: lint-and-run-tests
+    needs: [lint-and-run-tests, prepare]
     strategy:
       matrix:
-        environment: ${{ fromJson(env.ENVIRONMENTS) }}
+        environment: ${{ fromJson(needs.prepare.outputs.environments) }}
         project: ${{ fromJson(needs.lint-and-run-tests.outputs.affected-projects) }}
     uses: softkitit/github-actions-terraform/.github/workflows/controller-initialize-terraform-state.yml@main
     with:
@@ -76,10 +86,10 @@ jobs:
     secrets: inherit
 
   plan-app:
-    needs: [lint-and-run-tests, init-state-app]
+    needs: [lint-and-run-tests, init-state-app, prepare]
     strategy:
       matrix:
-        environment: ${{ fromJson(env.ENVIRONMENTS) }}
+        environment: ${{ fromJson(needs.prepare.outputs.environments) }}
         project: ${{ fromJson(needs.lint-and-run-tests.outputs.affected-projects) }}
     uses: softkitit/github-actions-terraform/.github/workflows/ci-terraform-plan-and-format.yml@main
     with:
