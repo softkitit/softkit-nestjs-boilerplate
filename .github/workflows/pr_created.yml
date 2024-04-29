@@ -17,7 +17,7 @@ jobs:
       - name: Install environment
         id: define-envs
         run: |
-            echo "environments=${{ startsWith(github.head_ref, 'release/') && vars.RELEASE_ENVIRONMENTS || vars.DEV_ENVIRONMENTS }}" >> $GITHUB_OUTPUT
+            echo "environments='${{ startsWith(github.head_ref, 'release/') && vars.RELEASE_ENVIRONMENTS || vars.DEV_ENVIRONMENTS }}'" >> $GITHUB_OUTPUT
             echo "base-name=${{ startsWith(github.head_ref, 'release/') && 'last_release' || 'origin/main' }}" >> $GITHUB_OUTPUT
 
   lint-and-run-tests:
