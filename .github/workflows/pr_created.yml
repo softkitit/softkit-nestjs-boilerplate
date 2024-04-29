@@ -14,11 +14,16 @@ jobs:
       base-name: ${{ steps.define-envs.outputs.base-name }}
 
     steps:
-      - name: Install environment
+      - name: Define envs information
         id: define-envs
         run: |
             echo "environments='${{ startsWith(github.head_ref, 'release/') && vars.RELEASE_ENVIRONMENTS || vars.DEV_ENVIRONMENTS }}'" >> $GITHUB_OUTPUT
             echo "base-name=${{ startsWith(github.head_ref, 'release/') && 'last_release' || 'origin/main' }}" >> $GITHUB_OUTPUT
+      - name: Debug
+        run: |
+          echo ${{ steps.define-envs.outputs.environments }}
+          echo ${{ steps.define-envs.outputs.base-name }}
+
 
   lint-and-run-tests:
     needs: [prepare]
