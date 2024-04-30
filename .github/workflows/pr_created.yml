@@ -30,6 +30,8 @@ jobs:
         run:
           echo '${{ needs.prepare.outputs.base-name }}'
           echo '${{ needs.prepare.outputs.environments }}'
+          echo ${{ fromJson(needs.prepare.outputs.environments) }}
+          echo '${{ fromJson(needs.prepare.outputs.environments) }}'
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
