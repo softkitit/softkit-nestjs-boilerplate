@@ -72,7 +72,7 @@ jobs:
       repository-name: ${{ github.event.repository.name }}
       project-name: ${{ matrix.project }}
       environment: ${{ matrix.environment }}
-      terraform-folder: ./apps/${{ matrix.project }}/terraform
+      terraform-folder: apps/${{ matrix.project }}/terraform
     secrets: inherit
 
   init-state-ci:
@@ -87,7 +87,7 @@ jobs:
       repository-name: ${{ github.event.repository.name }}
       project-name: ${{ matrix.project }}
       environment: ${{ matrix.environment }}
-      terraform-folder: ./apps/${{ matrix.project }}/terraform-ci
+      terraform-folder: apps/${{ matrix.project }}/terraform-ci
     secrets: inherit
 
   plan-app:
@@ -99,7 +99,7 @@ jobs:
     uses: softkitit/github-actions-terraform/.github/workflows/ci-terraform-plan-and-format.yml@main
     with:
       environment: ${{ matrix.environment }}
-      terraform-folder: ./apps/${{ matrix.project }}/terraform
+      terraform-folder: apps/${{ matrix.project }}/terraform
       override-plan-comment: false
     secrets: inherit
 
@@ -112,7 +112,7 @@ jobs:
     uses: softkitit/github-actions-terraform/.github/workflows/ci-terraform-plan-and-format.yml@main
     with:
       environment: ${{ matrix.environment }}
-      terraform-folder: ./apps/${{ matrix.project }}/terraform-ci
+      terraform-folder: apps/${{ matrix.project }}/terraform-ci
       override-plan-comment: false
     secrets: inherit
 
