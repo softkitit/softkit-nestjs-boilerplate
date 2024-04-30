@@ -1,0 +1,138 @@
+name: Build and deploy apps
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [ closed ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        type: string
+        options:
+          - dev
+          - stage
+          - prod
+        description: "Environment to apply changes to"
+        default: "dev"
+
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
+jobs:
+  prepare:
+    if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && startWith(github.head_ref, 'release/'))
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.define-envs.outputs.environment }}
+      base-name: ${{ steps.define-envs.outputs.base-name }}
+      image-tag: ${{ steps.define-envs.outputs.image-tag }}
+      docker-url: ${{ steps.define-envs.outputs.docker-url }}
+
+    steps:
+      - name: Define envs information
+        id: define-envs
+        run: |
+          echo BRANCH_SLUG=$(echo ${{ env.BRANCH_NAME }} | sed 's/[^a-zA-Z0-9]/-/g') >> $GITHUB_ENV
+          echo image-tag=${{ startsWith(env.BRANCH_NAME, 'release/') && ${BRANCH_SLUG} || format("{0}-{1}", github.run_id, github.run_attempt) }} >> $GITHUB_OUTPUT
+          echo environment=${{ inputs.environment || "dev" }} >> $GITHUB_OUTPUT
+          echo base-name=${{ startsWith(env.BRANCH_NAME, 'release/') && 'last_release' || 'origin/main' }} >> $GITHUB_OUTPUT
+          echo docker-url=${{ format("{0}.dkr.ecr.{1}.amazonaws.com", vars.DEPLOYMENT_AWS_ACCOUNT_ID, vars.DEPLOYMENT_AWS_ACCOUNT_REGION) }} >> $GITHUB_OUTPUT
+
+  build-apps:
+    needs: [ prepare ]
+    runs-on: ubuntu-latest
+    outputs:
+      affected-projects: ${{ steps.get-affected-projects.outputs.affected-projects }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH_NAME }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install environment
+        run: yarn install
+
+      - name: Build apps and libraries
+        if: ${{ needs.prepare.outputs.environment == 'dev' }}
+        run: npx nx affected:build --base="${{ needs.prepare.outputs.base-name }}"
+
+      - name: Upload builds
+        if: ${{ needs.prepare.outputs.environment == 'dev' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: dist/
+
+      - name: Get affected projects
+        id: get-affected-projects
+        run: echo affected-projects=$(npx nx show projects --json --affected --type app --with-target build --base ${{ needs.prepare.outputs.base-name }}) >> $GITHUB_OUTPUT
+
+  apply-tf-ci-changes:
+    needs: [ prepare, build-apps ]
+    strategy:
+      matrix:
+        project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
+    if: ${{ needs.prepare.outputs.environment == 'dev' }}
+    uses: softkitit/github-actions-terraform/.github/workflows/cd-apply-terraform-changes.yml@main
+    with:
+      environment: "deployment"
+      terraform-folder: apps/${{ matrix.project }}/terraform-ci
+    secrets: inherit
+
+  build-and-push-images:
+    needs: [prepare, build-apps]
+    if: ${{ needs.prepare.outputs.environment == 'dev' }}
+    strategy:
+      matrix:
+        project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
+    uses: softkitit/github-actions-terraform/.github/workflows/ci-build-and-push-docker-image.yml@main
+    with:
+      environment: ${{ needs.prepare.outputs.environment }}
+      ecr-repository-name: ${{ needs.prepare.outputs.ecr-repository-name }}
+      image-tag: ${{ needs.prepare.outputs.image-tag }}
+      docker-file-path: apps/${{ matrix.project }}
+      deployment-account-id: ${{ vars.DEPLOYMENT_AWS_ACCOUNT_ID }}
+    secrets: inherit
+
+  apply-tf-app-changes:
+    needs: [ prepare, build-apps ]
+    strategy:
+      matrix:
+        project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
+    uses: softkitit/github-actions-terraform/.github/workflows/cd-apply-terraform-changes.yml@main
+    with:
+      environment: ${{ needs.prepare.outputs.environment }}
+      terraform-folder: apps/${{ matrix.project }}/terraform
+    secrets: inherit
+
+  deploy-app:
+    needs: [prepare, build_apps, apply_tf_ci_changes, apply_tf_app_changes ]
+    strategy:
+      matrix:
+        project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
+    uses: softkitit/github-actions-terraform/.github/workflows/cd-deploy-to-ecs.yml@main
+    with:
+      environment: ${{ needs.prepare.outputs.environment }}
+      ecs-cluster-name: format("{0}-{1}", github.event.repository.owner.login, needs.prepare.outputs.environment)
+      ecs-service-name: format("{0}-{1}-{2}-{3}", github.event.repository.owner.login, needs.prepare.outputs.environment, github.event.repository.name, matrix.project)
+      ecr-repository-name: format("{0}-{1}", github.event.repository.name, matrix.project)
+      image: format("{0}/{1}-{2}:{3}", needs.prepare.outputs.docker-url, vars.DEPLOYMENT_AWS_ACCOUNT_REGION, github.event.repository.name, matrix.project, needs.prepare.outputs.image-tag)
+    secrets: inherit
+
+
+
+
+
+
