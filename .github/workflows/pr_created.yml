@@ -10,19 +10,19 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      environments: ${{ steps.define-envs.outputs.environments }}
-      base-name: ${{ steps.define-envs.outputs.base-name }}
+      environments: '${{ steps.define-envs.outputs.environments }}'
+      base-name: '${{ steps.define-envs.outputs.base-name }}'
 
     steps:
       - name: Define envs information
         id: define-envs
         run: |
-            echo "environments='${{ startsWith(github.head_ref, 'release/') && vars.RELEASE_ENVIRONMENTS || vars.DEV_ENVIRONMENTS }}'" >> $GITHUB_OUTPUT
+            echo "environments='${{ startsWith(github.head_ref, "release/") && vars.RELEASE_ENVIRONMENTS || vars.DEV_ENVIRONMENTS }}'" >> $GITHUB_OUTPUT
             echo "base-name=${{ startsWith(github.head_ref, 'release/') && 'last_release' || 'origin/main' }}" >> $GITHUB_OUTPUT
       - name: Debug
         run: |
-          echo ${{ steps.define-envs.outputs.environments }}
-          echo ${{ steps.define-envs.outputs.base-name }}
+          echo '${{ steps.define-envs.outputs.environments }}'
+          echo '${{ steps.define-envs.outputs.base-name }}'
           echo '${{ vars.RELEASE_ENVIRONMENTS }}'
           echo '${{ vars.DEV_ENVIRONMENTS }}'
 
@@ -31,7 +31,7 @@ jobs:
     needs: [prepare]
     runs-on: ubuntu-latest
     outputs:
-        affected-projects: ${{ steps.get-affected-projects.outputs.affected-projects }}
+        affected-projects: '${{ steps.get-affected-projects.outputs.affected-projects }}'
     steps:
       - uses: actions/checkout@v4
         with:
