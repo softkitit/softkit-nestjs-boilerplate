@@ -23,8 +23,8 @@ jobs:
         run: |
           echo ${{ steps.define-envs.outputs.environments }}
           echo ${{ steps.define-envs.outputs.base-name }}
-          echo ${{ vars.RELEASE_ENVIRONMENTS }}
-          echo ${{ vars.DEV_ENVIRONMENTS }}
+          echo '${{ vars.RELEASE_ENVIRONMENTS }}'
+          echo '${{ vars.DEV_ENVIRONMENTS }}'
 
 
   lint-and-run-tests:
