@@ -26,12 +26,6 @@ jobs:
     outputs:
         affected-projects: ${{ steps.get-affected-projects.outputs.affected-projects }}
     steps:
-      - name: Debug
-        run:
-          echo '${{ needs.prepare.outputs.base-name }}'
-          echo '${{ needs.prepare.outputs.environments }}'
-          echo ${{ fromJson(needs.prepare.outputs.environments) }}
-          echo '${{ fromJson(needs.prepare.outputs.environments) }}'
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
@@ -62,9 +56,12 @@ jobs:
         run: echo affected-projects='$(npx nx show projects --json --affected --type app --with-target build --base ${{ needs.prepare.outputs.base-name }})' >> $GITHUB_OUTPUT
 
       - name: Debug affected projects
-        run: |
-          echo ${{ steps.get-affected-projects.outputs.affected-projects }}
-          echo '${{ steps.get-affected-projects.outputs.affected-projects }}'
+        run: echo ${{ steps.get-affected-projects.outputs.affected-projects }}
+
+      - name: Debug affected projects 2
+        run: echo '${{ steps.get-affected-projects.outputs.affected-projects }}'
+
+
 
 
   init-state-app:
