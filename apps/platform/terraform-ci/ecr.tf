@@ -7,7 +7,7 @@ module "ecr" {
   context                 = module.this.context
   enable_lifecycle_policy = true
   max_image_count         = 3
-  image_names             = [
+  image_names = [
     "${var.repository_name}-${var.project_name}",
   ]
   principals_full_access = [
