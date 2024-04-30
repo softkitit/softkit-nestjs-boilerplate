@@ -94,8 +94,19 @@ jobs:
       terraform-folder: apps/${{ matrix.project }}/terraform-ci
     secrets: inherit
 
+  apply-tf-app-changes:
+    needs: [ prepare, build-apps ]
+    strategy:
+      matrix:
+        project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
+    uses: softkitit/github-actions-terraform/.github/workflows/cd-apply-terraform-changes.yml@main
+    with:
+      environment: ${{ needs.prepare.outputs.environment }}
+      terraform-folder: apps/${{ matrix.project }}/terraform
+    secrets: inherit
+
   build-and-push-images:
-    needs: [prepare, build-apps]
+    needs: [prepare, build-apps, apply-tf-ci-changes, apply-tf-app-changes]
     if: ${{ needs.prepare.outputs.environment == 'dev' }}
     strategy:
       matrix:
@@ -109,19 +120,8 @@ jobs:
       deployment-account-id: ${{ vars.DEPLOYMENT_AWS_ACCOUNT_ID }}
     secrets: inherit
 
-  apply-tf-app-changes:
-    needs: [ prepare, build-apps ]
-    strategy:
-      matrix:
-        project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
-    uses: softkitit/github-actions-terraform/.github/workflows/cd-apply-terraform-changes.yml@main
-    with:
-      environment: ${{ needs.prepare.outputs.environment }}
-      terraform-folder: apps/${{ matrix.project }}/terraform
-    secrets: inherit
-
   deploy-app:
-    needs: [prepare, build-apps, apply-tf-ci-changes, apply-tf-app-changes ]
+    needs: [prepare, build-apps, build-and-push-images ]
     strategy:
       matrix:
         project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
