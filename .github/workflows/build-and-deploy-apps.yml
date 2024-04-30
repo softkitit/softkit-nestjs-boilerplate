@@ -10,6 +10,9 @@ on:
     branches:
       - main
     types: [ closed ]
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       environment:
@@ -40,7 +43,7 @@ jobs:
         id: define-envs
         run: |
           echo BRANCH_SLUG=$(echo ${{ env.BRANCH_NAME }} | sed 's/[^a-zA-Z0-9]/-/g') >> $GITHUB_ENV
-          echo image-tag=${{ startsWith(env.BRANCH_NAME, 'release/') && ${BRANCH_SLUG} || format("{0}-{1}", github.run_id, github.run_attempt) }} >> $GITHUB_OUTPUT
+          echo image-tag=${{ startsWith(env.BRANCH_NAME, 'release/') && env.BRANCH_SLUG || format("{0}-{1}", github.run_id, github.run_attempt) }} >> $GITHUB_OUTPUT
           echo environment=${{ inputs.environment || "dev" }} >> $GITHUB_OUTPUT
           echo base-name=${{ startsWith(env.BRANCH_NAME, 'release/') && 'last_release' || 'origin/main' }} >> $GITHUB_OUTPUT
           echo docker-url=${{ format("{0}.dkr.ecr.{1}.amazonaws.com", vars.DEPLOYMENT_AWS_ACCOUNT_ID, vars.DEPLOYMENT_AWS_ACCOUNT_REGION) }} >> $GITHUB_OUTPUT
