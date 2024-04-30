@@ -22,6 +22,7 @@ jobs:
       - name: Debug
         run: |
           echo "environments='${{ startsWith(github.head_ref, 'release/') && vars.RELEASE_ENVIRONMENTS || vars.DEV_ENVIRONMENTS }}'"
+          echo 'environments=\'${{ startsWith(github.head_ref, 'release/') && vars.RELEASE_ENVIRONMENTS || vars.DEV_ENVIRONMENTS }}\''
           echo '${{ steps.define-envs.outputs.environments }}'
           echo '${{ steps.define-envs.outputs.base-name }}'
           echo '${{ vars.RELEASE_ENVIRONMENTS }}'
