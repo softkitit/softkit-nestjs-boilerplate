@@ -61,6 +61,12 @@ jobs:
         id: get-affected-projects
         run: echo affected-projects='$(nx show projects --json --affected --type app --with-target build --base ${{ needs.prepare.outputs.base-name }})' >> $GITHUB_OUTPUT
 
+      - name: Debug affected projects
+        run: |
+          echo ${{ steps.get-affected-projects.outputs.affected-projects }}
+          echo '${{ steps.get-affected-projects.outputs.affected-projects }}'
+
+
   init-state-app:
     needs: [lint-and-run-tests, prepare]
     strategy:
