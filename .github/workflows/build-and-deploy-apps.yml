@@ -121,7 +121,7 @@ jobs:
     secrets: inherit
 
   deploy-app:
-    needs: [prepare, build_apps, apply_tf_ci_changes, apply_tf_app_changes ]
+    needs: [prepare, build-apps, apply-tf-ci-changes, apply-tf-app-changes ]
     strategy:
       matrix:
         project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
