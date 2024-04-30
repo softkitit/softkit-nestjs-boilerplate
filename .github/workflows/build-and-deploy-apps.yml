@@ -30,7 +30,7 @@ env:
 
 jobs:
   prepare:
-    if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && startWith(github.head_ref, 'release/'))
+#    if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && startsWith(env.BRANCH_NAME, 'release/'))
     runs-on: ubuntu-latest
     outputs:
       environment: ${{ steps.define-envs.outputs.environment }}
