@@ -138,7 +138,9 @@ jobs:
       environment: ${{ needs.prepare.outputs.environment }}
       ecs-cluster-name: ${{ format('{0}-{1}', github.event.repository.owner.login, needs.prepare.outputs.environment) }}
       ecs-service-name: ${{ format('{0}-{1}-{2}-{3}', github.event.repository.owner.login, needs.prepare.outputs.environment, github.event.repository.name, matrix.project) }}
+      ecr-repository-name: ${{ format('{0}-{1}', github.event.repository.name, matrix.project) }}
       container-name: ${{ format('{0}-{1}', github.event.repository.name, matrix.project) }}
+      image-tag: ${{ needs.prepare.outputs.image-tag }}
       image: ${{ format('{0}/{1}-{2}:{3}', needs.prepare.outputs.docker-url, github.event.repository.name, matrix.project, needs.prepare.outputs.image-tag) }}
     secrets: inherit
 
