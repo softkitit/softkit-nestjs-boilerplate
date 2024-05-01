@@ -116,7 +116,7 @@ jobs:
     uses: softkitit/github-actions-terraform/.github/workflows/ci-build-and-push-docker-image.yml@main
     with:
       environment: ${{ needs.prepare.outputs.environment }}
-      ecr-repository-name: ${{ needs.prepare.outputs.ecr-repository-name }}
+      ecr-repository-name: ${{ github.event.repository.name }}-${{ matrix.project }}
       image-tag: ${{ needs.prepare.outputs.image-tag }}
       docker-file-path: apps/${{ matrix.project }}
       deployment-account-id: ${{ vars.DEPLOYMENT_AWS_ACCOUNT_ID }}
