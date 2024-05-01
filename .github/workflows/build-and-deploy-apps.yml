@@ -82,7 +82,7 @@ jobs:
       - name: Get affected projects
         id: get-affected-projects
 #        run: echo affected-projects=$(npx nx show projects --json --affected --type app --with-target build --base ${{ needs.prepare.outputs.base-name }}) >> $GITHUB_OUTPUT
-        run: echo affected-projects=$(npx nx show projects --json --type app --with-target build --base ${{ needs.prepare.outputs.base-name }}) >> $GITHUB_OUTPUT
+        run: echo affected-projects=$(npx nx show projects --json --type app --with-target build) >> $GITHUB_OUTPUT
 
   apply-tf-ci-changes:
     needs: [ prepare, build-apps ]
@@ -108,7 +108,7 @@ jobs:
     secrets: inherit
 
   build-and-push-images:
-    needs: [prepare, build-apps, apply-tf-ci-changes, apply-tf-app-changes]
+    needs: [ prepare, build-apps, apply-tf-ci-changes, apply-tf-app-changes ]
     if: ${{ needs.prepare.outputs.environment == 'dev' }}
     strategy:
       matrix:
