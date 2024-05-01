@@ -69,7 +69,8 @@ jobs:
 
       - name: Build apps and libraries
         if: ${{ needs.prepare.outputs.environment == 'dev' }}
-        run: npx nx affected:build --base="${{ needs.prepare.outputs.base-name }}"
+#        run: npx nx affected:build --base="${{ needs.prepare.outputs.base-name }}"
+        run: npx nx run-many -t build
 
       - name: Upload builds
         if: ${{ needs.prepare.outputs.environment == 'dev' }}
@@ -80,7 +81,8 @@ jobs:
 
       - name: Get affected projects
         id: get-affected-projects
-        run: echo affected-projects=$(npx nx show projects --json --affected --type app --with-target build --base ${{ needs.prepare.outputs.base-name }}) >> $GITHUB_OUTPUT
+#        run: echo affected-projects=$(npx nx show projects --json --affected --type app --with-target build --base ${{ needs.prepare.outputs.base-name }}) >> $GITHUB_OUTPUT
+        run: echo affected-projects=$(npx nx show projects --json --type app --with-target build --base ${{ needs.prepare.outputs.base-name }}) >> $GITHUB_OUTPUT
 
   apply-tf-ci-changes:
     needs: [ prepare, build-apps ]
