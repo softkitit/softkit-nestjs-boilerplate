@@ -4657,7 +4657,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/async-storage@npm:0.0.10":
+"@softkit/async-storage@npm:^0.0.10":
   version: 0.0.10
   resolution: "@softkit/async-storage@npm:0.0.10"
   peerDependencies:
@@ -4666,7 +4666,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/auth@npm:1.0.8":
+"@softkit/auth@npm:^1.0.8":
   version: 1.0.8
   resolution: "@softkit/auth@npm:1.0.8"
   dependencies:
@@ -4687,9 +4687,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/bootstrap@npm:0.2.8":
-  version: 0.2.8
-  resolution: "@softkit/bootstrap@npm:0.2.8"
+"@softkit/bootstrap@npm:^0.2.9":
+  version: 0.2.9
+  resolution: "@softkit/bootstrap@npm:0.2.9"
   peerDependencies:
     "@fastify/helmet": ^11.0.0
     "@nestjs/common": ^10.0.0
@@ -4711,18 +4711,18 @@ __metadata:
     typeorm: ^0.3.0
     typeorm-extension: ^3.0.0
     typeorm-transactional: ^0.4.0
-  checksum: af2fea195d9b01bb8e1a665a67131d0f19601bcc06fa0fabe477bb54a1ad304aa182ec42d074c53677bdc1b0d4625cb25b120468c141531edad1e3838a02147d
+  checksum: 7fd3baad8d4dbc6fb54dc58ba772a7976771119890ff76b6ee8bdf477c02578125aa7a6d15e3683dda56ccd3142567d537efd4b03bb293b37183fa9b430e2afa
   languageName: node
   linkType: hard
 
-"@softkit/common-types@npm:0.2.2":
+"@softkit/common-types@npm:^0.2.2":
   version: 0.2.2
   resolution: "@softkit/common-types@npm:0.2.2"
   checksum: 2a420cb68ca328ecf8590ee9f54476094c17f8561d793eeca0b433b3697d3f13f8df492a49d7c5e583496abfe310b6789ba185914e3349527c984103bf948484
   languageName: node
   linkType: hard
 
-"@softkit/config@npm:0.2.0":
+"@softkit/config@npm:^0.2.0":
   version: 0.2.0
   resolution: "@softkit/config@npm:0.2.0"
   dependencies:
@@ -4733,7 +4733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/crypto@npm:0.0.8":
+"@softkit/crypto@npm:^0.0.8":
   version: 0.0.8
   resolution: "@softkit/crypto@npm:0.0.8"
   dependencies:
@@ -4743,7 +4743,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/eslint-backend@npm:0.1.2":
+"@softkit/eslint-backend@npm:^0.1.2":
   version: 0.1.2
   resolution: "@softkit/eslint-backend@npm:0.1.2"
   dependencies:
@@ -4765,7 +4765,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/exceptions@npm:0.1.5":
+"@softkit/exceptions@npm:^0.1.5":
   version: 0.1.5
   resolution: "@softkit/exceptions@npm:0.1.5"
   peerDependencies:
@@ -4777,7 +4777,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/health-check@npm:0.0.10":
+"@softkit/health-check@npm:^0.0.10":
   version: 0.0.10
   resolution: "@softkit/health-check@npm:0.0.10"
   peerDependencies:
@@ -4792,9 +4792,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/i18n@npm:0.4.1":
-  version: 0.4.1
-  resolution: "@softkit/i18n@npm:0.4.1"
+"@softkit/i18n@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@softkit/i18n@npm:0.4.2"
   dependencies:
     accept-language-parser: 1.5.0
     chalk: 4.1.2
@@ -4824,11 +4824,11 @@ __metadata:
       optional: true
   bin:
     i18n: src/lib/cli.js
-  checksum: cc24f2acc278719b66f6a8f0b4c145a39f921893ac09939056e518ecefbc47da6fa96ab6c2fff82bbcaa4f8f5945250a94be23a059f7a9e6181cbe36ba7f0062
+  checksum: d6411e8a3145510dc19576e3ef6b6671f83531e684938017725eb7eeb5470f55427394535adb5a910dc71573718663aaaf20a890d58c9438d59ef9e504575194
   languageName: node
   linkType: hard
 
-"@softkit/logger@npm:0.1.3":
+"@softkit/logger@npm:^0.1.3":
   version: 0.1.3
   resolution: "@softkit/logger@npm:0.1.3"
   dependencies:
@@ -4844,7 +4844,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/redis@npm:0.2.2":
+"@softkit/redis@npm:^0.2.2":
   version: 0.2.2
   resolution: "@softkit/redis@npm:0.2.2"
   peerDependencies:
@@ -4858,7 +4858,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/resource-plugin@npm:0.6.13":
+"@softkit/resource-plugin@npm:^0.6.13":
   version: 0.6.13
   resolution: "@softkit/resource-plugin@npm:0.6.13"
   dependencies:
@@ -4872,7 +4872,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/server-http-client@npm:0.0.11":
+"@softkit/server-http-client@npm:^0.0.11":
   version: 0.0.11
   resolution: "@softkit/server-http-client@npm:0.0.11"
   dependencies:
@@ -4926,26 +4926,26 @@ __metadata:
     "@nx/webpack": 17.1.2
     "@nx/workspace": 17.1.2
     "@openapitools/openapi-generator-cli": 2.9.0
-    "@softkit/async-storage": 0.0.10
-    "@softkit/auth": 1.0.8
-    "@softkit/bootstrap": 0.2.8
-    "@softkit/common-types": 0.2.2
-    "@softkit/config": 0.2.0
-    "@softkit/crypto": 0.0.8
-    "@softkit/eslint-backend": 0.1.2
-    "@softkit/exceptions": 0.1.5
-    "@softkit/health-check": 0.0.10
-    "@softkit/i18n": 0.4.1
-    "@softkit/logger": 0.1.3
-    "@softkit/redis": 0.2.2
-    "@softkit/resource-plugin": 0.6.13
-    "@softkit/server-http-client": 0.0.11
-    "@softkit/string-utils": 0.0.5
-    "@softkit/swagger-utils": 0.1.3
-    "@softkit/test-utils": 0.2.3
-    "@softkit/typeorm": 0.5.3
-    "@softkit/typeorm-service": 0.1.2
-    "@softkit/validation": 0.3.7
+    "@softkit/async-storage": ^0.0.10
+    "@softkit/auth": ^1.0.8
+    "@softkit/bootstrap": ^0.2.9
+    "@softkit/common-types": ^0.2.2
+    "@softkit/config": ^0.2.0
+    "@softkit/crypto": ^0.0.8
+    "@softkit/eslint-backend": ^0.1.2
+    "@softkit/exceptions": ^0.1.5
+    "@softkit/health-check": ^0.0.10
+    "@softkit/i18n": ^0.4.2
+    "@softkit/logger": ^0.1.3
+    "@softkit/redis": ^0.2.2
+    "@softkit/resource-plugin": ^0.6.13
+    "@softkit/server-http-client": ^0.0.11
+    "@softkit/string-utils": ^0.0.5
+    "@softkit/swagger-utils": ^0.1.3
+    "@softkit/test-utils": ^0.2.4
+    "@softkit/typeorm": ^0.5.3
+    "@softkit/typeorm-service": ^0.1.2
+    "@softkit/validation": ^0.3.7
     "@songkeys/nestjs-redis": 10.0.0
     "@testcontainers/postgresql": 10.4.0
     "@types/jest": 29.5.11
@@ -4998,14 +4998,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@softkit/string-utils@npm:0.0.5":
+"@softkit/string-utils@npm:^0.0.5":
   version: 0.0.5
   resolution: "@softkit/string-utils@npm:0.0.5"
   checksum: 013ca7c842bc608d8ec3514564f8ed8b65fbe81af5f227b9216cf48657223cccbe9817c53c945417008b6c333e7b20b6bd687f7bddd356d508797792b02fa1c3
   languageName: node
   linkType: hard
 
-"@softkit/swagger-utils@npm:0.1.3":
+"@softkit/swagger-utils@npm:^0.1.3":
   version: 0.1.3
   resolution: "@softkit/swagger-utils@npm:0.1.3"
   peerDependencies:
@@ -5017,9 +5017,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/test-utils@npm:0.2.3":
-  version: 0.2.3
-  resolution: "@softkit/test-utils@npm:0.2.3"
+"@softkit/test-utils@npm:^0.2.4":
+  version: 0.2.4
+  resolution: "@softkit/test-utils@npm:0.2.4"
   dependencies:
     "@testcontainers/postgresql": 10.2.1
     testcontainers: 10.2.1
@@ -5038,11 +5038,11 @@ __metadata:
       optional: true
     typeorm-transactional:
       optional: true
-  checksum: ef9eae53e7aa5e33b32ce37f38d2e0085cdab029ce464c85aa803f7d55300414266b142b599041db7c20e4d884597e4628d1076950bae488919f0323002dd08a
+  checksum: b0b51c127a6c384341321316c48ea7586d53aa4a1a7abbbe74c88ce2ab6529fd394361aa5cfe5e8567ba8453595d2e522e5c080b6fc3bad4ab7c7ecc9e4cc9c6
   languageName: node
   linkType: hard
 
-"@softkit/typeorm-service@npm:0.1.2":
+"@softkit/typeorm-service@npm:^0.1.2":
   version: 0.1.2
   resolution: "@softkit/typeorm-service@npm:0.1.2"
   peerDependencies:
@@ -5059,7 +5059,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/typeorm@npm:0.5.3":
+"@softkit/typeorm@npm:^0.5.3":
   version: 0.5.3
   resolution: "@softkit/typeorm@npm:0.5.3"
   dependencies:
@@ -5085,7 +5085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/validation@npm:0.3.7":
+"@softkit/validation@npm:^0.3.7":
   version: 0.3.7
   resolution: "@softkit/validation@npm:0.3.7"
   peerDependencies:

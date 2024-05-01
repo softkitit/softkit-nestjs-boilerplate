@@ -118,7 +118,7 @@ jobs:
       environment: ${{ needs.prepare.outputs.environment }}
       ecr-repository-name: ${{ github.event.repository.name }}-${{ matrix.project }}
       image-tag: ${{ needs.prepare.outputs.image-tag }}
-      docker-file-path: apps/${{ matrix.project }}
+      docker-file-path: apps/${{ matrix.project }}/Dockerfile
       additional-artifact: build
       deployment-account-id: ${{ vars.DEPLOYMENT_AWS_ACCOUNT_ID }}
     secrets: inherit
