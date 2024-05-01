@@ -72,16 +72,16 @@ jobs:
 #        run: npx nx affected:build --base="${{ needs.prepare.outputs.base-name }}"
         run: npx nx run-many -t build
 
+#      readme needed because of limitation of upload artifact action
+#      https://github.com/actions/upload-artifact/issues/174
       - name: Upload builds
         if: ${{ needs.prepare.outputs.environment == 'dev' }}
         uses: actions/upload-artifact@v4
         with:
           name: build
-#            readme needed because of limitation of upload artifact action
-#            https://github.com/actions/upload-artifact/issues/174
           path: |
-            ./dist
-            ./README.md
+            dist
+            README.md
           if-no-files-found: error
 
       - name: Get affected projects
