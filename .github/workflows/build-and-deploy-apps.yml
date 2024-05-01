@@ -125,6 +125,7 @@ jobs:
       image-tag: ${{ needs.prepare.outputs.image-tag }}
       docker-file-path: apps/${{ matrix.project }}/Dockerfile
       additional-artifact: build
+      unwrap-artifact: true
       deployment-account-id: ${{ vars.DEPLOYMENT_AWS_ACCOUNT_ID }}
     secrets: inherit
 
