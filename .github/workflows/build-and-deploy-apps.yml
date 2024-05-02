@@ -24,6 +24,7 @@ on:
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -36,14 +37,16 @@ jobs:
       is-release: ${{ steps.define-envs.outputs.is-release }}
 
     steps:
+      - name: Base env info
+        run: |
+          echo BRANCH_SLUG="$(echo '${{ env.BRANCH_NAME }}' | sed 's/[^a-zA-Z0-9]/-/g')" >> $GITHUB_ENV
+          echo ENVIRONMENT=${{ inputs.environment || 'dev' }} >> $GITHUB_ENV
+
       - name: Define envs information
         id: define-envs
         run: |
-          echo BRANCH_SLUG=$(echo ${{ env.BRANCH_NAME }} | sed 's/[^a-zA-Z0-9]/-/g') >> $GITHUB_ENV
-          echo ENVIRONMENT=${{ inputs.environment || 'dev' }} >> $GITHUB_ENV
-          echo $ENVIRONMENT
-          echo $BRANCH_SLUG
           echo ${{ env.ENVIRONMENT }}
+          echo ${{ env.BRANCH_SLUG }}
 
           echo image-tag=${{ startsWith(env.BRANCH_NAME, 'release/') && env.BRANCH_SLUG || format('{0}-{1}', github.run_id, github.run_attempt) }} >> $GITHUB_OUTPUT
           echo environment=${{ env.ENVIRONMENT }} >> $GITHUB_OUTPUT
