@@ -41,6 +41,9 @@ jobs:
         run: |
           echo BRANCH_SLUG=$(echo ${{ env.BRANCH_NAME }} | sed 's/[^a-zA-Z0-9]/-/g') >> $GITHUB_ENV
           echo ENVIRONMENT=${{ inputs.environment || 'dev' }} >> $GITHUB_ENV
+          echo $ENVIRONMENT
+          echo $BRANCH_SLUG
+          echo ${{ env.ENVIRONMENT }}
 
           echo image-tag=${{ startsWith(env.BRANCH_NAME, 'release/') && env.BRANCH_SLUG || format('{0}-{1}', github.run_id, github.run_attempt) }} >> $GITHUB_OUTPUT
           echo environment=${{ env.ENVIRONMENT }} >> $GITHUB_OUTPUT
@@ -105,7 +108,7 @@ jobs:
       matrix:
         project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
 # ci changes are applied only for dev environment, essentially it's global changes for the deployment account
-#    if: ${{ needs.prepare.outputs.is-dev }}
+    if: ${{ needs.prepare.outputs.is-dev }}
     uses: softkitit/github-actions-terraform/.github/workflows/cd-apply-terraform-changes.yml@main
     with:
       environment: "deployment"
