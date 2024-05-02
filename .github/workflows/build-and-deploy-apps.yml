@@ -65,11 +65,11 @@ jobs:
         run: |
           if [ $(git tag -l ${{ needs.prepare.outputs.release-tag }}) ]; then
            echo "Last release tag exists, will process with affected applications"
-           echo exec-cmd="nx affected --base=${{ needs.prepare.outputs.release-tag }}" >> $GITHUB_OUTPUT
+           echo exec-cmd="npx nx affected --base=${{ needs.prepare.outputs.release-tag }}" >> $GITHUB_OUTPUT
            echo show-apps="npx nx show projects --json --type app --affected --base ${{ needs.prepare.outputs.release-tag }}" >> $GITHUB_OUTPUT
           else
            echo "No last release tag exists, all apps will be deployed"
-           echo exec-cmd="nx run-many" >> $GITHUB_OUTPUT
+           echo exec-cmd="npx nx run-many" >> $GITHUB_OUTPUT
            echo show-apps="npx nx show projects --json --type app" >> $GITHUB_OUTPUT
           fi
 
