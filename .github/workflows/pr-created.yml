@@ -23,10 +23,10 @@ jobs:
         id: define-envs
         run: |
             echo environments='${{ startsWith(github.head_ref, 'release/') && vars.RELEASE_ENVIRONMENTS || vars.DEV_ENVIRONMENTS }}' >> $GITHUB_OUTPUT
-            echo base-name=${{ startsWith(github.head_ref, 'release/') && 'last_release' || 'origin/main' }} >> $GITHUB_OUTPUT
+            echo base-name=${{ startsWith(github.head_ref, 'release/') && 'last-release' || 'main' }} >> $GITHUB_OUTPUT
 
   lint-and-run-tests:
-    needs: [prepare]
+    needs: [ prepare ]
     runs-on: ubuntu-latest
     outputs:
         affected-projects: ${{ steps.get-affected-projects.outputs.affected-projects }}
@@ -61,7 +61,7 @@ jobs:
         run: echo affected-projects=$(npx nx show projects --json --affected --type app --with-target build --base ${{ needs.prepare.outputs.base-name }}) >> $GITHUB_OUTPUT
 
   init-state-app:
-    needs: [lint-and-run-tests, prepare]
+    needs: [ lint-and-run-tests, prepare ]
     strategy:
       matrix:
         environment: ${{ fromJson(needs.prepare.outputs.environments) }}

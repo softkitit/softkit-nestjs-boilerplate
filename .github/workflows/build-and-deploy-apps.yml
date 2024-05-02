@@ -6,10 +6,6 @@ permissions:
   id-token: write
 
 on:
-  pull_request:
-    branches:
-      - main
-    types: [ closed ]
   push:
     branches:
       - main
@@ -30,22 +26,27 @@ env:
 
 jobs:
   prepare:
-#    if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && startsWith(env.BRANCH_NAME, 'release/'))
     runs-on: ubuntu-latest
     outputs:
       environment: ${{ steps.define-envs.outputs.environment }}
-      base-name: ${{ steps.define-envs.outputs.base-name }}
+      release-tag: ${{ steps.define-envs.outputs.release-tag }}
       image-tag: ${{ steps.define-envs.outputs.image-tag }}
       docker-url: ${{ steps.define-envs.outputs.docker-url }}
+      is-dev: ${{ steps.define-envs.outputs.is-dev }}
+      is-release: ${{ steps.define-envs.outputs.is-release }}
 
     steps:
       - name: Define envs information
         id: define-envs
         run: |
           echo BRANCH_SLUG=$(echo ${{ env.BRANCH_NAME }} | sed 's/[^a-zA-Z0-9]/-/g') >> $GITHUB_ENV
+          echo ENVIRONMENT=${{ inputs.environment || 'dev' }} >> $GITHUB_ENV
+
           echo image-tag=${{ startsWith(env.BRANCH_NAME, 'release/') && env.BRANCH_SLUG || format('{0}-{1}', github.run_id, github.run_attempt) }} >> $GITHUB_OUTPUT
-          echo environment=${{ inputs.environment || 'dev' }} >> $GITHUB_OUTPUT
-          echo base-name=${{ startsWith(env.BRANCH_NAME, 'release/') && 'last_release' || 'main' }} >> $GITHUB_OUTPUT
+          echo environment=${{ env.ENVIRONMENT }} >> $GITHUB_OUTPUT
+          echo is-dev=${{ env.ENVIRONMENT == 'dev' && 'true' || '' }} >> $GITHUB_OUTPUT
+          echo is-release=${{ startsWith(env.BRANCH_NAME, 'release/') && 'true' || '' }} >> $GITHUB_OUTPUT
+          echo release-tag=${{ format('{0}-{1}', env.ENVIRONMENT, 'last-release') }} >> $GITHUB_OUTPUT
           echo docker-url=${{ format('{0}.dkr.ecr.{1}.amazonaws.com', vars.DEPLOYMENT_AWS_ACCOUNT_ID, vars.DEPLOYMENT_AWS_ACCOUNT_REGION) }} >> $GITHUB_OUTPUT
 
   build-apps:
@@ -59,6 +60,19 @@ jobs:
           ref: ${{ env.BRANCH_NAME }}
           fetch-depth: 0
 
+      - name: Verify if last release tag exists, and define nx command to use
+        id: nx
+        run: |
+          if [ $(git tag -l ${{ needs.prepare.outputs.release-tag }}) ]; then
+           echo "Last release tag exists, will process with affected applications"
+           echo exec-cmd="nx affected --base=${{ needs.prepare.outputs.release-tag }}" >> $GITHUB_OUTPUT
+           echo show-apps="npx nx show projects --json --type app --affected --base ${{ needs.prepare.outputs.release-tag }}" >> $GITHUB_OUTPUT
+          else
+           echo "No last release tag exists, all apps will be deployed"
+           echo exec-cmd="nx run-many" >> $GITHUB_OUTPUT
+           echo show-apps="npx nx show projects --json --type app" >> $GITHUB_OUTPUT
+          fi
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -68,14 +82,11 @@ jobs:
         run: yarn install
 
       - name: Build apps and libraries
-        if: ${{ needs.prepare.outputs.environment == 'dev' }}
-#        run: npx nx affected:build --base="${{ needs.prepare.outputs.base-name }}"
-        run: npx nx run-many -t build
+        run: ${{ steps.nx.outputs.exec-cmd }} -t build
 
 #      readme needed because of limitation of upload artifact action
 #      https://github.com/actions/upload-artifact/issues/174
       - name: Upload builds
-        if: ${{ needs.prepare.outputs.environment == 'dev' }}
         uses: actions/upload-artifact@v4
         with:
           name: build
@@ -86,15 +97,15 @@ jobs:
 
       - name: Get affected projects
         id: get-affected-projects
-#        run: echo affected-projects=$(npx nx show projects --json --affected --type app --with-target build --base ${{ needs.prepare.outputs.base-name }}) >> $GITHUB_OUTPUT
-        run: echo affected-projects=$(npx nx show projects --json --type app --with-target build) >> $GITHUB_OUTPUT
+        run: echo affected-projects=$(${{ steps.nx.outputs.show-apps }} --with-target build) >> $GITHUB_OUTPUT
 
   apply-tf-ci-changes:
     needs: [ prepare, build-apps ]
     strategy:
       matrix:
         project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
-    if: ${{ needs.prepare.outputs.environment == 'dev' }}
+# ci changes are applied only for dev environment, essentially it's global changes for the deployment account
+    if: ${{ needs.prepare.outputs.is-dev }}
     uses: softkitit/github-actions-terraform/.github/workflows/cd-apply-terraform-changes.yml@main
     with:
       environment: "deployment"
@@ -113,8 +124,7 @@ jobs:
     secrets: inherit
 
   build-and-push-images:
-    needs: [ prepare, build-apps, apply-tf-ci-changes, apply-tf-app-changes ]
-    if: ${{ needs.prepare.outputs.environment == 'dev' }}
+    needs: [ prepare, build-apps, apply-tf-ci-changes ]
     strategy:
       matrix:
         project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
@@ -129,7 +139,7 @@ jobs:
     secrets: inherit
 
   deploy-app:
-    needs: [prepare, build-apps, build-and-push-images ]
+    needs: [ prepare, build-and-push-images ]
     strategy:
       matrix:
         project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
