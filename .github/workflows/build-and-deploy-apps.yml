@@ -45,9 +45,6 @@ jobs:
       - name: Define envs information
         id: define-envs
         run: |
-          echo ${{ env.ENVIRONMENT }}
-          echo ${{ env.BRANCH_SLUG }}
-
           echo image-tag=${{ startsWith(env.BRANCH_NAME, 'release/') && env.BRANCH_SLUG || format('{0}-{1}', github.run_id, github.run_attempt) }} >> $GITHUB_OUTPUT
           echo environment=${{ env.ENVIRONMENT }} >> $GITHUB_OUTPUT
           echo is-dev=${{ env.ENVIRONMENT == 'dev' && 'true' || '' }} >> $GITHUB_OUTPUT
