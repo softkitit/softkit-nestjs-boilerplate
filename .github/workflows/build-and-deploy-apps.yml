@@ -142,7 +142,7 @@ jobs:
     secrets: inherit
 
   deploy-app:
-    needs: [ prepare, build-and-push-images ]
+    needs: [ prepare, build-apps, build-and-push-images ]
     strategy:
       matrix:
         project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
