@@ -108,7 +108,6 @@ jobs:
       matrix:
         project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
 # ci changes are applied only for dev environment, essentially it's global changes for the deployment account
-    if: ${{ needs.prepare.outputs.is-dev }}
     uses: softkitit/github-actions-terraform/.github/workflows/cd-apply-terraform-changes.yml@main
     with:
       environment: "deployment"
@@ -128,10 +127,6 @@ jobs:
 
   build-and-push-images:
     needs: [ prepare, build-apps, apply-tf-ci-changes ]
-    if: |
-      always() &&
-      !contains(needs.*.result, 'failure') &&
-      !contains(needs.*.result, 'cancelled')
     strategy:
       matrix:
         project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
@@ -163,8 +158,7 @@ jobs:
     secrets: inherit
 
   mark-release:
-    needs: [ prepare, build-apps, build-and-push-images, deploy-app ]
-    if: ${{ needs.prepare.outputs.is-release }}
+    needs: [ prepare, deploy-app ]
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
