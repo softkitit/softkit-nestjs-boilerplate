@@ -1,0 +1,35 @@
+name: Mark last global release
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+
+jobs:
+  mark-release:
+    if: ${{ startsWith(github.head_ref, 'release/') }}
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - name: Mark global release
+        run: |
+          echo "Marking last global release"
+          git tag -fa "last-release" -m "Release last release global release"
+          git push origin last-release --force --no-verify
+          echo "Release last-release global marked"
+
+
+
+
+
+

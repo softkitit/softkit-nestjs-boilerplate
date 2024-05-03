@@ -158,6 +158,24 @@ jobs:
       image: ${{ format('{0}/{1}-{2}:{3}', needs.prepare.outputs.docker-url, github.event.repository.name, matrix.project, needs.prepare.outputs.image-tag) }}
     secrets: inherit
 
+  mark-release:
+    needs: [ prepare, build-apps, build-and-push-images, deploy-app ]
+    if: ${{ needs.prepare.outputs.is-release }}
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH_NAME }}
+          fetch-depth: 0
+      - name: Mark release
+        run: |
+          echo "Marking release ${{ needs.prepare.outputs.release-tag }}"
+          git tag -fa ${{ needs.prepare.outputs.release-tag }} -m "Release ${{ needs.prepare.outputs.release-tag }}"
+          git push origin ${{ needs.prepare.outputs.release-tag }} --force --no-verify
+          echo "Release ${{ needs.prepare.outputs.release-tag }} marked"
+
 
 
 
