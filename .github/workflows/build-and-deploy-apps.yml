@@ -128,6 +128,10 @@ jobs:
 
   build-and-push-images:
     needs: [ prepare, build-apps, apply-tf-ci-changes ]
+    if: |
+      always() &&
+      !contains(needs.*.result, 'failure') &&
+      !contains(needs.*.result, 'cancelled')
     strategy:
       matrix:
         project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
