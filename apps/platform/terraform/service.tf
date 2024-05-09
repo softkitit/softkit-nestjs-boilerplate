@@ -4,7 +4,7 @@ module "ecs-web-app" {
   context = module.this.context
 
   vpc_id                                          = data.aws_vpc.default.id
-  alb_ingress_unauthenticated_listener_arns       = [ data.aws_lb_listener.default_public.arn ]
+  alb_ingress_unauthenticated_listener_arns       = [data.aws_lb_listener.default_public.arn]
   alb_ingress_unauthenticated_listener_arns_count = 1
   ecs_cluster_arn                                 = data.aws_ecs_cluster.default.arn
   ecs_cluster_name                                = data.aws_ecs_cluster.default.cluster_name
@@ -18,24 +18,24 @@ module "ecs-web-app" {
   alb_security_group                              = data.aws_security_group.default.id
   use_alb_security_group                          = true
 
-  container_cpu = local.task_cpu
+  container_cpu    = local.task_cpu
   container_memory = local.task_memory
 
   ignore_changes_task_definition = true
-  launch_type = "EC2"
-  enable_all_egress_rule = true
+  launch_type                    = "EC2"
+  enable_all_egress_rule         = true
 
-  ecs_security_group_enabled = false
-  deployment_controller_type = "ECS"
+  ecs_security_group_enabled         = false
+  deployment_controller_type         = "ECS"
   circuit_breaker_deployment_enabled = true
-  circuit_breaker_rollback_enabled = true
+  circuit_breaker_rollback_enabled   = true
 
   container_image = "nginx:latest"
 
   alb_ingress_protocol_version = "HTTP2"
 
   task_policy_arns = [
-#    module.task_policy.policy_arn
+    #    module.task_policy.policy_arn
   ]
 
   alb_stickiness_enabled = true
@@ -43,7 +43,7 @@ module "ecs-web-app" {
   capacity_provider_strategies = [{
     capacity_provider = "simple-web-app"
     weight            = 1
-    base            = 1
+    base              = 1
   }]
 
   container_port = local.app_port

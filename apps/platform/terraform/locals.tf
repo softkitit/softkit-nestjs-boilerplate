@@ -22,9 +22,9 @@ locals {
 
   # Non-Editable Variables
 
-  zone_name    = lookup(local.domain_name_env, var.environment, "${var.environment}.${local.main_domain_name}")
+  zone_name = lookup(local.domain_name_env, var.environment, "${var.environment}.${local.main_domain_name}")
 
-  alb_domain_name    = "api.${local.zone_name}"
+  alb_domain_name = "api.${local.zone_name}"
 
   task_cpu      = lookup(local.task_cpu_env, var.environment, 1024)
   task_memory   = lookup(local.task_memory_env, var.environment, 879)
