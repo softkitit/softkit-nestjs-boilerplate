@@ -12,7 +12,7 @@ on:
 
 jobs:
   mark-release:
-    if: ${{ startsWith(github.head_ref, 'release/') }}
+    if: ${{ startsWith(github.head_ref, 'release/') }} && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
