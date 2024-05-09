@@ -1,6 +1,5 @@
 module "ecs-web-app" {
-  source  = "cloudposse/ecs-web-app/aws"
-  version = "2.0.2"
+  source  = "git::https://github.com/vsamofal/terraform-aws-ecs-web-app.git?ref=feature/update_alb_ingress_version"
   context = module.this.context
 
   vpc_id                                          = data.aws_vpc.default.id

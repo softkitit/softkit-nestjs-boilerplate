@@ -1,6 +1,6 @@
 environment          = "prod"
 aws_region           = "eu-central-1"
-repository_name      = "boilerplate"
+repository_name      = "softkit-nestjs-boilerplate"
 project_name         = "platform"
 org_name             = "softkitit"
 tf_state_file_name   = "prod-platform-terraform.tfstate"
