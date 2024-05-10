@@ -155,6 +155,7 @@ jobs:
       container-name: ${{ format('{0}-{1}-{2}', github.event.repository.name, needs.prepare.outputs.environment, matrix.project) }}
       image-tag: ${{ needs.prepare.outputs.image-tag }}
       image: ${{ format('{0}/{1}-{2}:{3}', needs.prepare.outputs.docker-url, github.event.repository.name, matrix.project, needs.prepare.outputs.image-tag) }}
+      wait-for-service-stability: true
     secrets: inherit
 
   mark-release:
