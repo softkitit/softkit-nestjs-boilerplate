@@ -26,7 +26,7 @@
     "@nestjs/core": "10.3.0",
     "@nestjs/jwt": "10.2.0",
     "@nestjs/typeorm": "10.0.1",
-    "@softkit/config": "0.2.0",
+    "@softkit/config": "0.2.1",
     "@softkit/async-storage": "0.0.10",
     "passport-saml": "3.2.4",
     "typeorm-transactional": "0.4.1",

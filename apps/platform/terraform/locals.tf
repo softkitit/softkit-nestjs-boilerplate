@@ -22,6 +22,8 @@ locals {
 
   # Non-Editable Variables
 
+  capacity_provider_name = "simple-web-app"
+
   zone_name = lookup(local.domain_name_env, var.environment, "${var.environment}.${local.main_domain_name}")
 
   alb_domain_name = "api.${local.zone_name}"

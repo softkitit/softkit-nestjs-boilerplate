@@ -4722,14 +4722,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/config@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@softkit/config@npm:0.2.0"
+"@softkit/config@npm:0.2.1":
+  version: 0.2.1
+  resolution: "@softkit/config@npm:0.2.1"
   dependencies:
     nest-typed-config: ^2.9.1
   peerDependencies:
     "@nestjs/common": ^10.0.0
-  checksum: 2ea9bfad8a245fabf17a1db78650147e3a874d683074bc96dca9976bc8a64039ec7c667f7ba14303430d534fa176a1b3594a4db59ceee04276c583edbf0bf456
+  checksum: c71c0ed2d3d040d92184cb9da9f5d44e8f714937c8c664adc2c0d836a7c2e7f5c9438b6d1f34b94fe6416c46312b77e9ad8ec66a0950a0dabe20f3a661c41c01
   languageName: node
   linkType: hard
 
@@ -4930,7 +4930,7 @@ __metadata:
     "@softkit/auth": 1.0.8
     "@softkit/bootstrap": 0.2.9
     "@softkit/common-types": 0.2.2
-    "@softkit/config": 0.2.0
+    "@softkit/config": 0.2.1
     "@softkit/crypto": 0.0.8
     "@softkit/eslint-backend": 0.1.2
     "@softkit/exceptions": 0.1.5

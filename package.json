@@ -82,7 +82,7 @@
     "@softkit/auth": "1.0.8",
     "@softkit/bootstrap": "0.2.9",
     "@softkit/common-types": "0.2.2",
-    "@softkit/config": "0.2.0",
+    "@softkit/config": "0.2.1",
     "@softkit/crypto": "0.0.8",
     "@softkit/eslint-backend": "0.1.2",
     "@softkit/exceptions": "0.1.5",

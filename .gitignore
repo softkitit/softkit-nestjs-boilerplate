@@ -36,7 +36,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-.development/.docker-data
+.development/.*
 
 # System Files
 .DS_Store

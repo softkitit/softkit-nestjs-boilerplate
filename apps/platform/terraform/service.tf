@@ -1,5 +1,6 @@
 module "ecs-web-app" {
-  source  = "git::https://github.com/vsamofal/terraform-aws-ecs-web-app.git?ref=feature/update_alb_ingress_version"
+  source  = "cloudposse/ecs-web-app/aws"
+  version = "2.1.0"
   context = module.this.context
 
   vpc_id                                          = data.aws_vpc.default.id
@@ -40,7 +41,7 @@ module "ecs-web-app" {
   alb_stickiness_enabled = true
 
   capacity_provider_strategies = [{
-    capacity_provider = "simple-web-app"
+    capacity_provider = local.capacity_provider_name
     weight            = 1
     base              = 1
   }]
