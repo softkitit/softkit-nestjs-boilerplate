@@ -1,11 +1,13 @@
 services:
   postgres:
+    restart: unless-stopped
     image: postgres:15.4-alpine
     ports:
       - 5432:5432
     volumes:
-      - ./.docker-data/postgres-db:/var/lib/postgresql/data
+      - .postgres-data:/var/lib/postgresql/data
       - ./init-extensions-db.sh:/docker-entrypoint-initdb.d/init-extensions-db.sh
+
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -13,12 +15,13 @@ services:
 
   cache:
     image: redis/redis-stack:7.2.0-v2
-    restart: always
+    restart: unless-stopped
     ports:
       - '6379:6379'
       - '8001:8001'
     volumes:
-      - ./.docker-data/redis-db:/data
+      - .redis-data:/data
+
 volumes:
   cache:
     driver: local
