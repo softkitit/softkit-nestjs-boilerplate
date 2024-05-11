@@ -85,7 +85,7 @@ module "ecs-web-app" {
     },
     {
       name  = "SSL_ENABLED"
-      value = "true"
+      value = "false"
     }
   ]
 }
