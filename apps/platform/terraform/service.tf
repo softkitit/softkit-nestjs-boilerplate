@@ -1,3 +1,13 @@
+module "db_credentials" {
+  source         = "cloudposse/ssm-parameter-store/aws"
+  version        = "0.13.0"
+  parameter_read = ["/${var.environment}/default/database/creds"]
+}
+
+locals {
+  db           = jsondecode(module.db_credentials.values[0])
+}
+
 module "ecs-web-app" {
   source  = "cloudposse/ecs-web-app/aws"
   version = "2.1.0"
@@ -53,6 +63,30 @@ module "ecs-web-app" {
       name  = "NESTJS_PROFILES"
       value = var.environment
     },
+    {
+      name = "DB_HOST",
+      value = local.db.host
+    },
+    {
+      name = "DB_PORT",
+      value = local.db.port
+    },
+    {
+      name = "DB_USERNAME",
+      value = local.db.username
+    },
+    {
+      name = "DB_PASSWORD",
+      value = local.db.password
+    },
+    {
+      name = "DB_NAME",
+      value = "${var.project_name}"
+    },
+    {
+      name = "SSL_ENABLED"
+      value = "true"
+    }
   ]
 }
 
