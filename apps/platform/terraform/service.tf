@@ -5,7 +5,7 @@ module "db_credentials" {
 }
 
 locals {
-  db           = jsondecode(module.db_credentials.values[0])
+  db = jsondecode(module.db_credentials.values[0])
 }
 
 module "ecs-web-app" {
@@ -64,27 +64,27 @@ module "ecs-web-app" {
       value = var.environment
     },
     {
-      name = "DB_HOST",
+      name  = "DB_HOST",
       value = local.db.host
     },
     {
-      name = "DB_PORT",
+      name  = "DB_PORT",
       value = local.db.port
     },
     {
-      name = "DB_USERNAME",
+      name  = "DB_USERNAME",
       value = local.db.username
     },
     {
-      name = "DB_PASSWORD",
+      name  = "DB_PASSWORD",
       value = local.db.password
     },
     {
-      name = "DB_NAME",
+      name  = "DB_NAME",
       value = "${var.project_name}"
     },
     {
-      name = "SSL_ENABLED"
+      name  = "SSL_ENABLED"
       value = "true"
     }
   ]
