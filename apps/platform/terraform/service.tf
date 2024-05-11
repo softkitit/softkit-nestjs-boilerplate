@@ -12,6 +12,7 @@ module "ecs-web-app" {
   source  = "cloudposse/ecs-web-app/aws"
   version = "2.1.0"
   context = module.this.context
+  network_mode = null
 
   vpc_id                                          = data.aws_vpc.default.id
   alb_ingress_unauthenticated_listener_arns       = [data.aws_lb_listener.default_public.arn]
