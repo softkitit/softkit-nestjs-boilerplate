@@ -80,7 +80,7 @@
     "@nx/devkit": "17.1.2",
     "@softkit/async-storage": "0.0.10",
     "@softkit/auth": "1.0.8",
-    "@softkit/bootstrap": "0.2.10",
+    "@softkit/bootstrap": "0.2.11",
     "@softkit/common-types": "0.2.2",
     "@softkit/config": "0.2.1",
     "@softkit/crypto": "0.0.8",

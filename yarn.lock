@@ -4687,9 +4687,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/bootstrap@npm:0.2.10":
-  version: 0.2.10
-  resolution: "@softkit/bootstrap@npm:0.2.10"
+"@softkit/bootstrap@npm:0.2.11":
+  version: 0.2.11
+  resolution: "@softkit/bootstrap@npm:0.2.11"
   peerDependencies:
     "@fastify/helmet": ^11.0.0
     "@nestjs/common": ^10.0.0
@@ -4699,7 +4699,6 @@ __metadata:
     "@softkit/crypto": ^0.0.6
     "@softkit/exceptions": ^0.1.3
     "@softkit/i18n": ^0.1.1
-    "@softkit/logger": ^0.1.0
     "@softkit/server-http-client": ^0.0.9
     "@softkit/swagger-utils": ^0.1.1
     "@softkit/typeorm": ^0.5.0
@@ -4711,7 +4710,7 @@ __metadata:
     typeorm: ^0.3.0
     typeorm-extension: ^3.0.0
     typeorm-transactional: ^0.4.0
-  checksum: e416b724a10040ae508b74539073d8155e2a1c9366bd5a7347488668be52c38f73b61419f9124da079e1eb4af8b7c540309eedeb6b863a5dd56c3e1dc22729e1
+  checksum: 3a5ab4fd3d9f3d72dafa387ea73994407f0c22f76eca7d463d2981d0c1a563317f9ca1a5a4c4596c9925b968b8db2ac1f3222f96361be5898b4a1915b3c95cac
   languageName: node
   linkType: hard
 
@@ -4929,7 +4928,7 @@ __metadata:
     "@openapitools/openapi-generator-cli": 2.9.0
     "@softkit/async-storage": 0.0.10
     "@softkit/auth": 1.0.8
-    "@softkit/bootstrap": 0.2.10
+    "@softkit/bootstrap": 0.2.11
     "@softkit/common-types": 0.2.2
     "@softkit/config": 0.2.1
     "@softkit/crypto": 0.0.8
