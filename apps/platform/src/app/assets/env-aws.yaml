@@ -1,0 +1,4 @@
+db:
+  extra:
+    ssl:
+      rejectUnauthorized: ${DB_EXTRA_SSL_REJECT_UNAUTHORIZED:-false}

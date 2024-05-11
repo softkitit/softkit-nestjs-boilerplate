@@ -61,7 +61,7 @@ module "ecs-web-app" {
   container_environment = [
     {
       name  = "NESTJS_PROFILES"
-      value = var.environment
+      value = "${var.environment},aws"
     },
     {
       name = "DB_HOST",
