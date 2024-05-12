@@ -14,7 +14,7 @@ module "ecs-web-app" {
   context = module.this.context
   network_mode = null
 
-  target_type                                     = "instance"
+  alb_ingress_target_type                         = "instance"
   vpc_id                                          = data.aws_vpc.default.id
   alb_ingress_unauthenticated_listener_arns       = [data.aws_lb_listener.default_public.arn]
   alb_ingress_unauthenticated_listener_arns_count = 1
