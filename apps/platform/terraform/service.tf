@@ -9,11 +9,12 @@ locals {
 }
 
 module "ecs-web-app" {
-  source  = "cloudposse/ecs-web-app/aws"
-  version = "2.1.0"
+  source  = "git::https://github.com/vsamofal/terraform-aws-ecs-web-app.git?ref=fix/add_alb_target_type_input_field"
+
   context = module.this.context
   network_mode = null
 
+  target_type                                     = "instance"
   vpc_id                                          = data.aws_vpc.default.id
   alb_ingress_unauthenticated_listener_arns       = [data.aws_lb_listener.default_public.arn]
   alb_ingress_unauthenticated_listener_arns_count = 1
