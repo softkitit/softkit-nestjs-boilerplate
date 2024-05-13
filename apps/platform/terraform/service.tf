@@ -30,6 +30,8 @@ module "ecs-web-app" {
   alb_security_group                              = data.aws_security_group.default.id
   use_alb_security_group                          = true
 
+  alb_ingress_protocol_version                    = "HTTP1"
+
   container_cpu    = local.task_cpu
   container_memory = local.task_memory
 
@@ -43,8 +45,6 @@ module "ecs-web-app" {
   circuit_breaker_rollback_enabled   = true
 
   container_image = "nginx:latest"
-
-  alb_ingress_protocol_version = "HTTP2"
 
   task_policy_arns = [
     #    module.task_policy.policy_arn
