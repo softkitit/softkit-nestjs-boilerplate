@@ -23,7 +23,7 @@ module "ecs-web-app" {
   ecs_security_group_ids                          = [data.aws_security_group.default.id]
   ecs_private_subnet_ids                          = data.aws_subnets.private_subnets.ids
   alb_ingress_healthcheck_path                    = local.health_check_path
-  alb_ingress_unauthenticated_paths               = [local.public_app_path_route]
+  alb_ingress_unauthenticated_paths               = ["${local.public_app_path_route}/*"]
   codepipeline_enabled                            = false
   desired_count                                   = local.desired_count
   ecr_enabled                                     = false
