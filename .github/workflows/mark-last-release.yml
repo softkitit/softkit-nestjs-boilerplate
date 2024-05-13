@@ -27,6 +27,8 @@ jobs:
           fetch-depth: 0
       - name: Mark global release
         run: |
+          git config --local user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "GitHub Auto Release"
           echo "Marking last global release"
           git tag -fa "last-release" -m "Release last release global release"
           git push origin last-release --force --no-verify

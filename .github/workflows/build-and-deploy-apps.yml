@@ -170,6 +170,8 @@ jobs:
           fetch-depth: 0
       - name: Mark release
         run: |
+          git config --local user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "GitHub Auto Release"
           echo "Marking release ${{ needs.prepare.outputs.release-tag }}"
           git tag -fa ${{ needs.prepare.outputs.release-tag }} -m "Release ${{ needs.prepare.outputs.release-tag }}"
           git push origin ${{ needs.prepare.outputs.release-tag }} --force --no-verify
