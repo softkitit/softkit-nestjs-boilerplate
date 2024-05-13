@@ -30,7 +30,7 @@ module "ecs-web-app" {
   alb_security_group                              = data.aws_security_group.default.id
   use_alb_security_group                          = true
 
-  alb_ingress_protocol_version                    = "HTTP1"
+  alb_ingress_protocol_version = "HTTP1"
 
   container_cpu    = local.task_cpu
   container_memory = local.task_memory
