@@ -4687,9 +4687,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/bootstrap@npm:0.2.9":
-  version: 0.2.9
-  resolution: "@softkit/bootstrap@npm:0.2.9"
+"@softkit/bootstrap@npm:0.2.11":
+  version: 0.2.11
+  resolution: "@softkit/bootstrap@npm:0.2.11"
   peerDependencies:
     "@fastify/helmet": ^11.0.0
     "@nestjs/common": ^10.0.0
@@ -4699,7 +4699,6 @@ __metadata:
     "@softkit/crypto": ^0.0.6
     "@softkit/exceptions": ^0.1.3
     "@softkit/i18n": ^0.1.1
-    "@softkit/logger": ^0.1.0
     "@softkit/server-http-client": ^0.0.9
     "@softkit/swagger-utils": ^0.1.1
     "@softkit/typeorm": ^0.5.0
@@ -4711,7 +4710,7 @@ __metadata:
     typeorm: ^0.3.0
     typeorm-extension: ^3.0.0
     typeorm-transactional: ^0.4.0
-  checksum: 7fd3baad8d4dbc6fb54dc58ba772a7976771119890ff76b6ee8bdf477c02578125aa7a6d15e3683dda56ccd3142567d537efd4b03bb293b37183fa9b430e2afa
+  checksum: 3a5ab4fd3d9f3d72dafa387ea73994407f0c22f76eca7d463d2981d0c1a563317f9ca1a5a4c4596c9925b968b8db2ac1f3222f96361be5898b4a1915b3c95cac
   languageName: node
   linkType: hard
 
@@ -4722,14 +4721,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/config@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@softkit/config@npm:0.2.0"
+"@softkit/config@npm:0.2.1":
+  version: 0.2.1
+  resolution: "@softkit/config@npm:0.2.1"
   dependencies:
     nest-typed-config: ^2.9.1
   peerDependencies:
     "@nestjs/common": ^10.0.0
-  checksum: 2ea9bfad8a245fabf17a1db78650147e3a874d683074bc96dca9976bc8a64039ec7c667f7ba14303430d534fa176a1b3594a4db59ceee04276c583edbf0bf456
+  checksum: c71c0ed2d3d040d92184cb9da9f5d44e8f714937c8c664adc2c0d836a7c2e7f5c9438b6d1f34b94fe6416c46312b77e9ad8ec66a0950a0dabe20f3a661c41c01
   languageName: node
   linkType: hard
 
@@ -4828,19 +4827,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@softkit/logger@npm:0.1.3":
-  version: 0.1.3
-  resolution: "@softkit/logger@npm:0.1.3"
+"@softkit/logger@npm:0.1.4":
+  version: 0.1.4
+  resolution: "@softkit/logger@npm:0.1.4"
   dependencies:
     pino-http: 8.6.1
     pino-pretty: 10.3.1
   peerDependencies:
     "@nestjs/common": ^10.2.0
+    "@softkit/validation": ">0.3.7"
     class-validator: "*"
     nestjs-cls: ^3.0.0
     nestjs-pino: ^3.4.0
     rxjs: ^7.0.0
-  checksum: 037cbe5474d05cc715721c764c68184a67a34cd1cfcc724e8ec27c2bad24a42f5f78f249ed317ea1a782d44eadad3f0cdd89ef421c46770e7d7b4249adbc71f1
+  checksum: c4285b64940c8f270a2e4f37853069a770c98a5330d4fb9b7c2674ffc043582cba46c04814d4e1f2368b80d0286a7dd6e60888853646466cc0c343f7a797c83c
   languageName: node
   linkType: hard
 
@@ -4928,15 +4928,15 @@ __metadata:
     "@openapitools/openapi-generator-cli": 2.9.0
     "@softkit/async-storage": 0.0.10
     "@softkit/auth": 1.0.8
-    "@softkit/bootstrap": 0.2.9
+    "@softkit/bootstrap": 0.2.11
     "@softkit/common-types": 0.2.2
-    "@softkit/config": 0.2.0
+    "@softkit/config": 0.2.1
     "@softkit/crypto": 0.0.8
     "@softkit/eslint-backend": 0.1.2
     "@softkit/exceptions": 0.1.5
     "@softkit/health-check": 0.0.10
     "@softkit/i18n": 0.4.2
-    "@softkit/logger": 0.1.3
+    "@softkit/logger": 0.1.4
     "@softkit/redis": 0.2.2
     "@softkit/resource-plugin": 0.6.13
     "@softkit/server-http-client": 0.0.11

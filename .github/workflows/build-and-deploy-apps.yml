@@ -13,7 +13,7 @@ on:
     inputs:
       environment:
         required: true
-        type: string
+        type: choice
         options:
           - dev
           - stage
@@ -108,7 +108,6 @@ jobs:
       matrix:
         project: ${{ fromJson(needs.build-apps.outputs.affected-projects) }}
 # ci changes are applied only for dev environment, essentially it's global changes for the deployment account
-    if: ${{ needs.prepare.outputs.is-dev }}
     uses: softkitit/github-actions-terraform/.github/workflows/cd-apply-terraform-changes.yml@main
     with:
       environment: "deployment"
@@ -150,13 +149,33 @@ jobs:
     with:
       environment: ${{ needs.prepare.outputs.environment }}
       ecs-cluster-name: ${{ format('{0}-{1}', github.event.repository.owner.login, needs.prepare.outputs.environment) }}
-      ecs-service-name: ${{ format('{0}-{1}-{2}-{3}', github.event.repository.owner.login, needs.prepare.outputs.environment, github.event.repository.name, matrix.project) }}
+      ecs-service-name: ${{ format('{0}-{1}-{2}', github.event.repository.name, needs.prepare.outputs.environment, matrix.project) }}
       ecr-repository-name: ${{ format('{0}-{1}', github.event.repository.name, matrix.project) }}
       ecr-repository-account-id: ${{ vars.DEPLOYMENT_AWS_ACCOUNT_ID }}
-      container-name: ${{ format('{0}-{1}', github.event.repository.name, matrix.project) }}
+      container-name: ${{ format('{0}-{1}-{2}', github.event.repository.name, needs.prepare.outputs.environment, matrix.project) }}
       image-tag: ${{ needs.prepare.outputs.image-tag }}
       image: ${{ format('{0}/{1}-{2}:{3}', needs.prepare.outputs.docker-url, github.event.repository.name, matrix.project, needs.prepare.outputs.image-tag) }}
+      wait-for-service-stability: true
     secrets: inherit
+
+  mark-release:
+    needs: [ prepare, deploy-app ]
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH_NAME }}
+          fetch-depth: 0
+      - name: Mark release
+        run: |
+          git config --local user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "GitHub Auto Release"
+          echo "Marking release ${{ needs.prepare.outputs.release-tag }}"
+          git tag -fa ${{ needs.prepare.outputs.release-tag }} -m "Release ${{ needs.prepare.outputs.release-tag }}"
+          git push origin ${{ needs.prepare.outputs.release-tag }} --force --no-verify
+          echo "Release ${{ needs.prepare.outputs.release-tag }} marked"
 
 
 

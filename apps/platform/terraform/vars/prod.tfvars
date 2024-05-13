@@ -1,0 +1,8 @@
+environment          = "prod"
+aws_region           = "eu-central-1"
+repository_name      = "softkit-nestjs-boilerplate"
+project_name         = "platform"
+org_name             = "softkitit"
+tf_state_file_name   = "prod-platform-terraform.tfstate"
+dynamo_db_table_name = "prod-softkitit-platform"
+s3_bucket_name       = "prod-softkitit-platform"

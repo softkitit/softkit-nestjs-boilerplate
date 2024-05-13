@@ -1,0 +1,6 @@
+region         = "eu-central-1"
+bucket         = "prod-softkitit-platform"
+key            = "prod-platform-terraform.tfstate"
+profile        = ""
+encrypt        = "true"
+dynamodb_table = "prod-softkitit-platform"

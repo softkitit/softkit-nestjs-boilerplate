@@ -68,3 +68,4 @@ As a general rule of thumb is good to support multi tenancy nowadays, there is a
 We had about 10 cases where apps started as single tenant and later business owners thought to spread the cost and start selling this app as SaaS
 So this is quite common
 If you are thinking to do a single tenant, you can just choose `tenant switcher` and threat it as a single tenant
+

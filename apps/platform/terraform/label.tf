@@ -2,7 +2,7 @@ module "this" {
   source  = "cloudposse/label/null"
   version = "v0.25.0"
 
-  namespace   = var.org_name
+  namespace   = var.repository_name
   environment = var.environment
   name        = var.project_name
 
