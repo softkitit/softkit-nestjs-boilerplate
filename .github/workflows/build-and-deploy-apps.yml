@@ -161,8 +161,6 @@ jobs:
   mark-release:
     needs: [ prepare, deploy-app ]
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:

@@ -202,6 +202,20 @@
         ]
       }
     },
+    "/api/platform/v1/auth/refresh-access-token": {
+      "post": {
+        "operationId": "AuthController_refreshAccessToken",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
     "/api/platform/v1/auth/saml/sso/metadata": {
       "get": {
         "operationId": "SamlController_samlMetadata",
@@ -1101,10 +1115,6 @@
             "type": "string",
             "description": "Deleted at date time in ISO format"
           },
-          "version": {
-            "type": "string",
-            "description": "Entity version for optimistic lock handling"
-          },
           "id": {
             "type": "string"
           },
@@ -1124,16 +1134,19 @@
           },
           "tenantId": {
             "type": "string"
+          },
+          "version": {
+            "type": "number"
           }
         },
         "required": [
           "createdAt",
           "updatedAt",
           "deletedAt",
-          "version",
           "id",
           "name",
-          "description"
+          "description",
+          "version"
         ]
       },
       "CreateUserRole": {
@@ -1169,10 +1182,6 @@
             "type": "string",
             "description": "Deleted at date time in ISO format"
           },
-          "version": {
-            "type": "string",
-            "description": "Entity version for optimistic lock handling"
-          },
           "id": {
             "type": "string"
           },
@@ -1187,17 +1196,19 @@
             "items": {
               "$ref": "#/components/schemas/Permission"
             }
+          },
+          "version": {
+            "type": "number"
           }
         },
         "required": [
           "createdAt",
           "updatedAt",
           "deletedAt",
-          "version",
           "id",
           "name",
           "description",
-          "permissions"
+          "version"
         ]
       },
       "Permission": {
@@ -1218,10 +1229,6 @@
             "type": "string",
             "description": "Deleted at date time in ISO format"
           },
-          "version": {
-            "type": "string",
-            "description": "Entity version for optimistic lock handling"
-          },
           "id": {
             "type": "string"
           },
@@ -1239,24 +1246,21 @@
             "type": "string"
           },
           "permissionCategory": {
-            "nullable": true,
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PermissionCategory"
-              }
-            ]
+            "$ref": "#/components/schemas/PermissionCategory"
+          },
+          "version": {
+            "type": "number"
           }
         },
         "required": [
           "createdAt",
           "updatedAt",
           "deletedAt",
-          "version",
           "id",
           "name",
           "action",
           "permissionCategoryId",
-          "permissionCategory"
+          "version"
         ]
       },
       "UserRole": {
@@ -1276,10 +1280,6 @@
             "format": "date-time",
             "type": "string",
             "description": "Deleted at date time in ISO format"
-          },
-          "version": {
-            "type": "string",
-            "description": "Entity version for optimistic lock handling"
           },
           "id": {
             "type": "string"
@@ -1315,16 +1315,19 @@
                 "$ref": "#/components/schemas/Tenant"
               }
             ]
+          },
+          "version": {
+            "type": "number"
           }
         },
         "required": [
           "createdAt",
           "updatedAt",
           "deletedAt",
-          "version",
           "id",
           "name",
-          "description"
+          "description",
+          "version"
         ]
       },
       "UserTenantAccount": {
@@ -1344,10 +1347,6 @@
             "format": "date-time",
             "type": "string",
             "description": "Deleted at date time in ISO format"
-          },
-          "version": {
-            "type": "string",
-            "description": "Entity version for optimistic lock handling"
           },
           "tenantId": {
             "type": "string",
@@ -1377,17 +1376,20 @@
           },
           "tenant": {
             "$ref": "#/components/schemas/Tenant"
+          },
+          "version": {
+            "type": "number"
           }
         },
         "required": [
           "createdAt",
           "updatedAt",
           "deletedAt",
-          "version",
           "tenantId",
           "id",
           "userProfileId",
-          "userStatus"
+          "userStatus",
+          "version"
         ]
       },
       "UserProfile": {
@@ -1407,10 +1409,6 @@
             "format": "date-time",
             "type": "string",
             "description": "Deleted at date time in ISO format"
-          },
-          "version": {
-            "type": "string",
-            "description": "Entity version for optimistic lock handling"
           },
           "id": {
             "type": "string"
@@ -1440,18 +1438,21 @@
             "items": {
               "$ref": "#/components/schemas/UserTenantAccount"
             }
+          },
+          "version": {
+            "type": "number"
           }
         },
         "required": [
           "createdAt",
           "updatedAt",
           "deletedAt",
-          "version",
           "id",
           "email",
           "firstName",
           "lastName",
-          "status"
+          "status",
+          "version"
         ]
       },
       "SAMLConfiguration": {
@@ -1472,10 +1473,6 @@
             "type": "string",
             "description": "Deleted at date time in ISO format"
           },
-          "version": {
-            "type": "string",
-            "description": "Entity version for optimistic lock handling"
-          },
           "tenantId": {
             "type": "string",
             "description": "Tenant identifier"
@@ -1493,24 +1490,22 @@
             "type": "boolean"
           },
           "tenant": {
-            "nullable": true,
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Tenant"
-              }
-            ]
+            "$ref": "#/components/schemas/Tenant"
+          },
+          "version": {
+            "type": "number"
           }
         },
         "required": [
           "createdAt",
           "updatedAt",
           "deletedAt",
-          "version",
           "tenantId",
           "id",
           "entryPoint",
           "certificate",
-          "enabled"
+          "enabled",
+          "version"
         ]
       },
       "Tenant": {
@@ -1530,10 +1525,6 @@
             "format": "date-time",
             "type": "string",
             "description": "Deleted at date time in ISO format"
-          },
-          "version": {
-            "type": "string",
-            "description": "Entity version for optimistic lock handling"
           },
           "id": {
             "type": "string"
@@ -1568,27 +1559,26 @@
             "items": {
               "$ref": "#/components/schemas/UserTenantAccount"
             }
+          },
+          "version": {
+            "type": "number"
           }
         },
         "required": [
           "createdAt",
           "updatedAt",
           "deletedAt",
-          "version",
           "id",
           "tenantFriendlyIdentifier",
           "tenantName",
           "tenantStatus",
-          "ownerId"
+          "ownerId",
+          "version"
         ]
       },
       "UpdateUserRole": {
         "type": "object",
         "properties": {
-          "version": {
-            "type": "string",
-            "description": "Entity version for optimistic lock handling"
-          },
           "name": {
             "type": "string"
           },
@@ -1603,12 +1593,15 @@
                 "$ref": "#/components/schemas/Tenant"
               }
             ]
+          },
+          "version": {
+            "type": "number"
           }
         },
         "required": [
-          "version",
           "name",
-          "description"
+          "description",
+          "version"
         ]
       },
       "IdpMappingDto": {
