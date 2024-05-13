@@ -9,9 +9,9 @@ locals {
 }
 
 module "ecs-web-app" {
-  source  = "git::https://github.com/vsamofal/terraform-aws-ecs-web-app.git?ref=fix/add_alb_target_type_input_field"
+  source = "git::https://github.com/vsamofal/terraform-aws-ecs-web-app.git?ref=fix/add_alb_target_type_input_field"
 
-  context = module.this.context
+  context      = module.this.context
   network_mode = null
 
   alb_ingress_target_type                         = "instance"
