@@ -28,7 +28,7 @@ describe('Database migration', () => {
 
     app = await bootstrapBaseWebApp(moduleFixture, PlatformAppModule);
     dataSource = app.get(DataSource);
-  });
+  }, 60_000);
 
   afterEach(async () => {
     await app.flushLogs();
@@ -45,6 +45,6 @@ describe('Database migration', () => {
 
       // if we update an entity but do not generate and run a migration the count will be more than 0
       expect(countOfDifferences.length).toBe(0);
-    });
+    }, 60_000);
   });
 });

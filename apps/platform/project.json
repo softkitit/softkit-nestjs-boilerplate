@@ -72,6 +72,14 @@
         }
       }
     },
+    "i18n": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "i18n generate-types -o apps/platform/src/app/generated/i18n.generated.ts -t json -p apps/platform/src/app/i18n -t json -p node_modules/@softkit/validation/i18n/ -t json -p node_modules/@softkit/exceptions/i18n/"
+        ]
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
@@ -87,31 +95,12 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/platform/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/platform/jest.config.ts"
       },
       "configurations": {
         "ci": {
           "ci": true,
           "codeCoverage": true
-        }
-      }
-    },
-    "container": {
-      "executor": "@nx-tools/nx-container:build",
-      "dependsOn": ["build"],
-      "options": {
-        "engine": "docker",
-        "metadata": {
-          "images": ["platform"],
-          "load": true,
-          "tags": [
-            "type=schedule",
-            "type=ref,event=branch",
-            "type=ref,event=tag",
-            "type=ref,event=pr",
-            "type=sha,prefix=sha-"
-          ]
         }
       }
     }
